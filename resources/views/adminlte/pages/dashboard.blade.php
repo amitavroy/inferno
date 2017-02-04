@@ -1,3 +1,5 @@
-@include('adminlte.partials.header')
-@include('adminlte.partials.body')
-@include('adminlte.partials.footer')
+@extends('adminlte.html')
+
+@section('content')
+  <p>Content will come here.</p>
+@endsection

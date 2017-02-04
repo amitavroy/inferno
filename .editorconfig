@@ -1,0 +1,11 @@
+[*.*]
+indent_style = space
+
+[*.vue]
+indent_size = 2
+
+[*.js]
+indent_size = 2
+
+[*.blade.php]
+indent_size = 2

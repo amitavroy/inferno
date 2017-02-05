@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -26,6 +27,13 @@ class UserController extends Controller
 
         flash('Cannot login. Check your username and password again', 'danger');
         return redirect()->back();
+    }
+    
+    public function postLogout(Request $request)
+    {
+        Auth::logout();
+        flash('You have been logged out');
+        return redirect('/');
     }
 
     public function pageDashboard()

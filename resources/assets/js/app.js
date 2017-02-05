@@ -3,6 +3,9 @@ import VueRouter from 'vue-router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
+// importing custom components
+import SidebarCollapse from './components/SidebarCollapse'
+
 // Adding the X-CSRF-Token to all axios request
 axios.interceptors.request.use(function(config){
   config.headers['X-CSRF-TOKEN'] = window.Laravel.csrfToken
@@ -16,6 +19,11 @@ Vue.prototype.$http = axios
 Vue.use(VueAxios, axios)
 Vue.use(VueRouter)
 
+Vue.component('sidebar-collapse', SidebarCollapse)
+
 const app = new Vue({
-  el: '#app'
+  el: '#app',
+  data: {
+    message: 'Hello World!'
+  }
 })

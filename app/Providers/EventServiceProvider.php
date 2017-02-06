@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Listeners\UserEventListeners;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -16,6 +17,15 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\SomeEvent' => [
             'App\Listeners\EventListener',
         ],
+    ];
+
+    /**
+     * The array of Event subscriber classes
+     *
+     * @var array
+     */
+    protected $subscribe = [
+        UserEventListeners::class,
     ];
 
     /**

@@ -208,7 +208,7 @@
         </li>
         <!-- User Account: style can be found in dropdown.less -->
         <li class="dropdown user user-menu">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="user-dropdown-menu">
             <img src="{{url('adminlte/avatar.png')}}" class="user-image" alt="User Image">
             <span class="hidden-xs">{{Auth::user()->name}}</span>
           </a>
@@ -243,7 +243,10 @@
                 <a href="#" class="btn btn-default btn-flat">Profile</a>
               </div>
               <div class="pull-right">
-                <a href="javascript:void(0);" onclick="document.getElementById('logout-form').submit();" class="btn btn-default btn-flat">Sign out</a>
+                <a href="javascript:void(0);"
+                   id="logout-button"
+                   onclick="document.getElementById('logout-form').submit();"
+                   class="btn btn-default btn-flat">Sign out</a>
                 <form action="{{route('logout')}}" method="post" id="logout-form" style="display: none;">
                   {{csrf_field()}}
                 </form>

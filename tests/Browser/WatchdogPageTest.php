@@ -3,6 +3,7 @@
 namespace Tests\Browser;
 
 use App\User;
+use Illuminate\Support\Facades\DB;
 use Tests\DuskTestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
@@ -51,7 +52,14 @@ class WatchdogPageTest extends DuskTestCase
     public function testFirstRowOfTableIsLoginEntry()
     {
         $this->browse(function ($browser) {
-            $browser->visit($this->pageUrl);
+            // Logging in the User from the basic test
+            $loginTest = new ExampleTest();
+            $loginTest->testBasicLogin();
+
+            $user = User::find(1);
+            $browser->loginAs($user)
+                ->visit($this->pageUrl)
+                ->assertSeeIn('.table tbody tr:nth-child(1)', "User {$user->name} logged in");
         });
     }
 }

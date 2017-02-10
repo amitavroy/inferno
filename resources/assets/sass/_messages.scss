@@ -1,0 +1,8 @@
+.Message {
+  padding: 5px;
+  font-size: 0.9em;
+  font-style: italic;
+  &.error {
+    color: $danger-color;
+  }
+}

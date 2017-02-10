@@ -3,9 +3,7 @@
 namespace Tests\Browser;
 
 use App\User;
-use Illuminate\Support\Facades\DB;
 use Tests\DuskTestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class WatchdogPageTest extends DuskTestCase
 {
@@ -49,6 +47,12 @@ class WatchdogPageTest extends DuskTestCase
         });
     }
 
+    /**
+     * Test watchdog entry table is showing the latest entry of the user.
+     *
+     * @throws \Exception
+     * @throws \Throwable
+     */
     public function testFirstRowOfTableIsLoginEntry()
     {
         $this->browse(function ($browser) {

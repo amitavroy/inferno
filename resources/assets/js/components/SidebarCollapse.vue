@@ -9,7 +9,6 @@
       handleSidebarToggle () {
         if (this.clickable) {
           this.clickable = false
-          document.body.classList.toggle('sidebar-collapse')
           this.$http.post('/api/v1/sidebar-toggle').then(response => {
             this.clickable = true
           })

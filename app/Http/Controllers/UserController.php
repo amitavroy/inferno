@@ -58,6 +58,7 @@ class UserController extends Controller
         $user->name = $request->input('name');
         $user->save();
 
+        flash('Profile saved', 'info');
         return redirect()->back();
     }
 }

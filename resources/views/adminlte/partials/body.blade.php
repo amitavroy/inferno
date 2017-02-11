@@ -11,6 +11,8 @@
     <!-- Content Header (Page header) -->
     @yield('breadcrumb')
 
+    @include('adminlte.partials.notifications')
+
     <!-- Main content -->
     <section class="content">
       @yield('content')

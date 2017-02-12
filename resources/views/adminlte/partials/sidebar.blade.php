@@ -25,8 +25,19 @@
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu">
       <li class="header">MAIN NAVIGATION</li>
-      <li class="active treeview">
-        <a href="#"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
+      <li class="{{ Request::is('dashboard') ? 'active' : ''  }} treeview">
+        <a href="{{route('dashboard')}}"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
+      </li>
+      <li class="{{ Request::is('config/watchdog') ? 'active' : ''  }} treeview">
+        <a href="#">
+          <i class="fa fa-gear"></i> <span>Configuration</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+          <li class="{{ Request::is('config/activities') ? 'active' : ''  }}"><a href="{{route('activities')}}"><i class="fa fa-circle-o"></i> Activities</a></li>
+        </ul>
       </li>
     </ul>
   </section>

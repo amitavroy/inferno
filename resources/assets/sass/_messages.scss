@@ -1,0 +1,11 @@
+.Message {
+  padding: 5px;
+  font-size: 0.9em;
+  font-style: italic;
+  &.error {
+    color: $danger-color;
+  }
+}
+section.notification {
+  padding: 15px 15px 0 15px;
+}

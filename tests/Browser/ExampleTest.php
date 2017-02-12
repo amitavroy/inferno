@@ -61,6 +61,12 @@ class ExampleTest extends DuskTestCase
         });
     }
 
+    /**
+     * Validate that if credentials are wrong, we are getting wrong error message.
+     *
+     * @throws \Exception
+     * @throws \Throwable
+     */
     public function testWrongLoginMessage()
     {
         $this->browse(function (Browser $browser) {

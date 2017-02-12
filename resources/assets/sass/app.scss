@@ -4,7 +4,9 @@
 
 // Variables
 @import "variables";
-
+@import "global";
+@import "messages";
+@import "croppie";
 .HelpText {
 	&.error {
 		color: $danger-color;

@@ -15,9 +15,17 @@ class EloquentWatchdog extends AbstractRepository implements WatchdogRepository
         $this->model = $watchdog;
     }
 
-    public function getUserActivityList($userId = null)
+    public function getUserActivityList($userId = null, array $options)
     {
         $query = $this->model->select();
+
+        if ($options['search_text'] != null) {
+            $query->orWhere('description', 'like', "%{$options['search_text']}%");
+        }
+
+        if ($options['level'] != null) {
+            $query->where('level', '=', $options['level']);
+        }
 
         if ($userId != null) {
             $query->where('user_id', $userId);

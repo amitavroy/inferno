@@ -21,4 +21,14 @@ class Profile extends Model
     {
         $this->attributes['options'] = serialize($value);
     }
+
+    public function removeCurrentProfilePic($userWithProfile)
+    {
+        if ($userWithProfile->profile->profile_pic != '') {
+            $url = $userWithProfile->profile->profile_pic;
+            $fileName = explode('/', $url);
+            $fileName = $fileName[count($fileName) - 1];
+            unlink(public_path('profile_pics/') . $fileName);
+        }
+    }
 }

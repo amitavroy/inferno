@@ -5,6 +5,7 @@ import VueAxios from 'vue-axios'
 
 // importing custom components
 import SidebarCollapse from './components/SidebarCollapse'
+import ImageUpload from './components/ImageUpload'
 
 // Adding the X-CSRF-Token to all axios request
 axios.interceptors.request.use(function(config){
@@ -20,6 +21,7 @@ Vue.use(VueAxios, axios)
 Vue.use(VueRouter)
 
 Vue.component('sidebar-collapse', SidebarCollapse)
+Vue.component('image-upload', ImageUpload)
 
 const app = new Vue({
   el: '#app',

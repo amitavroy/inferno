@@ -63,7 +63,10 @@
           </div>
           <!-- /.box-header -->
           <div class="box-body">
-            <p>Upload profile pic</p>
+            <image-upload
+              alt="My profile image"
+              img-url="{{url('adminlte/avatar.png')}}">
+            </image-upload>
           </div>
           <!-- /.box-body -->
 

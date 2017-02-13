@@ -6,6 +6,7 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
+        "anlutro/l4-settings": "^0.4.9",
         "laracasts/flash": "^2.0",
         "laracasts/presenter": "^0.2.1",
         "laravel/dusk": "^1.0",

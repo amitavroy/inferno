@@ -6,6 +6,21 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
+How to Install:<br>
+
+Create an empty database called 'inferno'<br>
+
+$ git clone https://github.com/amitavroy/inferno.git<br>
+$ yarn install<br>  
+$ composer install<br>
+
+Copy contents of env.example into a new .env file and fill in your database credentials:<br>
+
+$ php artisan make:auth<br>
+$ php artisan migrate<br>
+$ php artisan key:generate<br>
+$ php artisan serve<br>
+
 
 ## About Laravel
 

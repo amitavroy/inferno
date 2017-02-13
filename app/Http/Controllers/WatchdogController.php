@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\Watchdog\WatchdogRepository;
 use Illuminate\Http\Request;
+use Setting;
 
 class WatchdogController extends Controller
 {
@@ -12,6 +13,10 @@ class WatchdogController extends Controller
     function __construct(WatchdogRepository $watchdog)
     {
         $this->watchdog = $watchdog;
+        $feature = Setting::get('watchdog', false);
+        if (!$feature) {
+            abort(403, 'This feature is not enabled.');
+        }
     }
 
     public function getWatchdogPage(Request $request)

@@ -4,9 +4,55 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c4611eb5672d6586886599c3e717180e",
-    "content-hash": "2e5a7e75b90079104d343e3be85c5f2f",
+    "hash": "ceb8a11767ded67672526cc992f4b18d",
+    "content-hash": "6c36b1ef9d8f7d07556b8fc89ddbe088",
     "packages": [
+        {
+            "name": "anlutro/l4-settings",
+            "version": "0.4.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/anlutro/laravel-settings.git",
+                "reference": "7c7091529cc8e307dd4cf3c66b1d5bdb6bc4444e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/anlutro/laravel-settings/zipball/7c7091529cc8e307dd4cf3c66b1d5bdb6bc4444e",
+                "reference": "7c7091529cc8e307dd4cf3c66b1d5bdb6bc4444e",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": ">=4.1 <6.0",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "illuminate/database": ">=4.1 <6.0",
+                "illuminate/filesystem": ">=4.1 <6.0",
+                "mockery/mockery": "0.9.*"
+            },
+            "suggest": {
+                "illuminate/database": "Save settings to a database table.",
+                "illuminate/filesystem": "Save settings to a JSON file."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "anlutro\\LaravelSettings\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Lutro",
+                    "email": "anlutro@gmail.com"
+                }
+            ],
+            "description": "Persistent settings in Laravel.",
+            "time": "2016-08-24 14:06:54"
+        },
         {
             "name": "dnoegel/php-xdg-base-dir",
             "version": "0.1",

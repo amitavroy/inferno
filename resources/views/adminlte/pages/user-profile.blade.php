@@ -64,15 +64,10 @@
           <!-- /.box-header -->
           <div class="box-body">
             <image-upload
-              alt="My profile image"
-              img-url="{{url('adminlte/avatar.png')}}">
+              img-url="{{Auth::user()->present()->profilePic}}">
             </image-upload>
           </div>
           <!-- /.box-body -->
-
-          <div class="box-footer">
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </div>
         </div>
         {{--End box--}}
       </div>

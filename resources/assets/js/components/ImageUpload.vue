@@ -1,9 +1,8 @@
 <script>
   import Croppie from 'croppie'
-  import $ from 'jquery'
   import {uploadProfilePic} from './../config'
   export default {
-    props: ['imgUrl', 'alt'],
+    props: ['imgUrl'],
     mounted () {
       this.$on('imgUploaded', function (imageData) {
         this.image = imageData
@@ -15,21 +14,33 @@
     },
     data () {
       return {
-        modalVisible: true,
+        button: {
+          name: 'Upload',
+          class: 'fa-upload'
+        },
+        modalVisible: false,
         croppie: null,
         image: null
       }
     },
     methods: {
       uploadFile () {
+        this.button = {
+          name: 'Uploading...',
+          class: 'fa-refresh fa-spin'
+        }
         this.croppie.result({
           type: 'canvas',
           size: 'viewport'
         }).then((response) => {
           this.image = response
-          this.axios.post('/api/v1/image-upload', {img: this.image})
+          this.axios.post(uploadProfilePic, {img: this.image})
             .then((response) => {
-              console.log('response', response)
+              this.modalVisible = false
+              this.button = {
+                name: 'Upload',
+                class: 'fa-upload'
+              }
             })
         })
       },
@@ -78,11 +89,16 @@
 
       <div class="Modal" v-if="modalVisible">
         <h4>Upload an Image</h4>
-        <input type="file" id="upload-image" 
-          v-on:change="setUpFileUploader">
+        <div class="input-file">
+          <input type="file" id="upload-image" v-on:change="setUpFileUploader">
+        </div>
         
         <button class="btn btn-success" v-on:click="uploadFile">
-          <i class="fa fa-upload"></i> Upload
+          <i class="fa" v-bind:class="button.class"></i> {{button.name}}
+        </button>
+
+        <button class="btn btn-warning" v-on:click="modalVisible = false">
+          <i class="fa fa-times"></i> Cancel
         </button>
       </div>
     </div>
@@ -91,8 +107,21 @@
 
 <style lang="scss">
   .Image-upload {
+    .Modal {
+      border-top: 1px solid #f4f4f4;
+      margin-top: 10px;
+      h4 {
+        margin-bottom: 20px;
+      }
+    }
     div#upload-wrapper {
       text-align: center;
+    }
+    .input-file {
+      text-align: left;
+      width: 50%;
+      margin: 0px auto;
+      margin-bottom: 20px;
     }
   }
 </style>

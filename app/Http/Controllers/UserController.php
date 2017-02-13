@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\User\LoggedIn;
 use App\Events\User\LoggedOut;
+use App\Events\User\ProfileEdited;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\User;
@@ -58,6 +59,7 @@ class UserController extends Controller
         $user->name = $request->input('name');
         $user->save();
 
+        event(new ProfileEdited());
         flash('Profile saved', 'info');
         return redirect()->back();
     }

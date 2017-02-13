@@ -9,6 +9,7 @@ namespace App\Listeners;
 
 use App\Events\User\LoggedIn;
 use App\Events\User\LoggedOut;
+use App\Events\User\ProfileEdited;
 use App\Services\Logger;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,10 +34,17 @@ class UserEventListeners
         $this->logger->log("User {$name} logged out");
     }
 
+    public function userProfileEdited(ProfileEdited $event)
+    {
+        $name = Auth::user()->name;
+        $this->logger->log("User {$name} changed his profile");
+    }
+
     public function subscribe($events)
     {
         $class = 'App\Listeners\UserEventListeners';
         $events->listen(LoggedIn::class, "{$class}@userLoggedIn");
         $events->listen(LoggedOut::class, "{$class}@userLoggedOut");
+        $events->listen(ProfileEdited::class, "{$class}@userProfileEdited");
     }
 }

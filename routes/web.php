@@ -10,3 +10,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('user/profile', ['as' => 'update-profile', 'uses' => 'UserController@postUpdateProfile']);
     Route::get('config/activities', ['as' => 'activities', 'uses' => 'WatchdogController@getWatchdogPage']);
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');

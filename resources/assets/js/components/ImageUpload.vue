@@ -18,6 +18,7 @@
           name: 'Upload',
           class: 'fa-upload'
         },
+        canUpload: true,
         modalVisible: false,
         croppie: null,
         image: null
@@ -25,6 +26,7 @@
     },
     methods: {
       uploadFile () {
+        this.canUpload = false
         this.button = {
           name: 'Uploading...',
           class: 'fa-refresh fa-spin'
@@ -36,6 +38,7 @@
           this.image = response
           this.axios.post(uploadProfilePic, {img: this.image})
             .then((response) => {
+              this.canUpload = true
               this.modalVisible = false
               this.button = {
                 name: 'Upload',

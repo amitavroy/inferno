@@ -28,7 +28,11 @@
       <div class="col-sm-12">
         <div class="error-wrapper">
           <h1>Access Denied</h1>
-          <p>{{$exception->getMessage()}}</p>
+          @if($exception->getMessage())
+            <p>{{$exception->getMessage()}}</p>
+          @else
+            <p>You tried to do some action which you are not allowed.</p>
+          @endif
         </div>
       </div>
     </div>

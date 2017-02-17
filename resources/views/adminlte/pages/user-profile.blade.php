@@ -57,7 +57,7 @@
 
       <div class="col-md-5 col-sm-12">
         {{--Box--}}
-        <div class="box box-primary">
+        <div class="box box-primary" id="profile-pic-block">
           <div class="box-header with-border">
             <h3 class="box-title">My profile pic</h3>
           </div>

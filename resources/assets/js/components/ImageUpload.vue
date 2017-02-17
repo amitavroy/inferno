@@ -93,10 +93,10 @@
       <div class="Modal" v-if="modalVisible">
         <h4>Upload an Image</h4>
         <div class="input-file">
-          <input type="file" id="upload-image" v-on:change="setUpFileUploader">
+          <input name="image-upload" type="file" id="upload-image" v-on:change="setUpFileUploader">
         </div>
         
-        <button class="btn btn-success" v-on:click="uploadFile">
+        <button class="btn btn-success" id="uploadFileCall" v-on:click="uploadFile">
           <i class="fa" v-bind:class="button.class"></i> {{button.name}}
         </button>
 

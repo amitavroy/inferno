@@ -25,7 +25,7 @@ class UserRegisterRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3|max:255',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
             'password' => 'required|min:6|max:16',
             'cpassword' => 'required|same:password'
         ];
@@ -34,6 +34,7 @@ class UserRegisterRequest extends FormRequest
     public function messages()
     {
         return [
+            'email.unique' => 'This email address is already used',
             'cpassword.required' => 'You need to confirm your password',
             'cpassword.same' => 'This should match your password field'
         ];

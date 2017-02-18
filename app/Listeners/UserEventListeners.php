@@ -43,7 +43,7 @@ class UserEventListeners
 
     public function userRegistered(Registered $event)
     {
-        $event->makeUserProfile(); // generating the default profile
+        $event->handleUserRegistration(); // handling activities on user register
         $name = $event->getUserName();
         $this->logger->log("A new User {$name} registered. Activation is pending.");
     }

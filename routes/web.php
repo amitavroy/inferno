@@ -3,9 +3,14 @@
 Route::get('/', function () {return view('adminlte.pages.login');});
 Route::post('/login', ['as' => 'login', 'uses' => 'UserController@login']);
 
+/*Urls based on functionality of User can register*/
 if (\Setting::get('user_can_register')) {
     Route::get('register', ['as' => 'register', 'uses' => 'UserController@getRegistrationPage']);
     Route::post('do-register', ['as' => 'do-register', 'uses' => 'UserController@postHandleUserRegistration']);
+    Route::get('config/user/activation-pending', [
+        'as' => 'user-activation-pending',
+        'uses' => 'AdminController@getUserActivationPending'
+    ]);
 }
 
 Route::group(['middleware' => 'auth'], function () {
@@ -13,6 +18,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('do-logout', ['as' => 'logout', 'uses' => 'UserController@postLogout']);
     Route::get('user/profile', ['as' => 'profile', 'uses' => 'UserController@pageUserProfile']);
     Route::post('user/profile', ['as' => 'update-profile', 'uses' => 'UserController@postUpdateProfile']);
-    Route::get('config/activities', ['as' => 'activities', 'uses' => 'WatchdogController@getWatchdogPage']);
-    Route::get('config/settings', ['as' => 'settings', 'uses' => 'UserController@getSettingsPage']);
+    Route::get('config', ['as' => 'config', 'uses' => 'AdminController@getConfigPage']);
+    Route::get('config/system/activities', ['as' => 'activities', 'uses' => 'WatchdogController@getWatchdogPage']);
+    Route::get('config/system/settings', ['as' => 'settings', 'uses' => 'UserController@getSettingsPage']);
 });

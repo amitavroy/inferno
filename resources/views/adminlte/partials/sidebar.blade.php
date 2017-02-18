@@ -28,7 +28,24 @@
       <li class="{{ Request::is('dashboard') ? 'active' : ''  }} treeview">
         <a href="{{route('dashboard')}}"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
       </li>
-      <li class="{{ Request::is('config/watchdog') ? 'active' : ''  }} treeview">
+
+      <li class="{{ Request::is('config/user/*') ? 'active' : ''  }} treeview">
+        <a href="#">
+          <i class="fa fa-user"></i> <span>Users and Roles</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+          @if(\Setting::get('user_can_register'))
+            <li class="{{ Request::is('config/user/activation-pending') ? 'active' : ''  }}">
+              <a href="{{route('user-activation-pending')}}"><i class="fa fa-circle-o"></i> Activation pending</a>
+            </li>
+          @endif
+        </ul>
+      </li>
+
+      <li class="{{ Request::is('config/system/*') ? 'active' : ''  }} treeview">
         <a href="#">
           <i class="fa fa-gear"></i> <span>Configuration</span>
             <span class="pull-right-container">
@@ -36,10 +53,10 @@
             </span>
         </a>
         <ul class="treeview-menu">
-          <li class="{{ Request::is('config/activities') ? 'active' : ''  }}">
+          <li class="{{ Request::is('config/system/activities') ? 'active' : ''  }}">
             <a href="{{route('activities')}}"><i class="fa fa-circle-o"></i> Activities</a>
           </li>
-          <li class="{{ Request::is('config/settings') ? 'active' : ''  }}">
+          <li class="{{ Request::is('config/system/settings') ? 'active' : ''  }}">
             <a href="{{route('settings')}}"><i class="fa fa-circle-o"></i> Settings</a>
           </li>
         </ul>

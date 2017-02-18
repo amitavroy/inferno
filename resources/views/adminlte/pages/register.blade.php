@@ -81,6 +81,8 @@
     </div>
     <!-- /.social-auth-links -->
 
+    <a href="{{url('/')}}" class="text-center">I already have an account</a>
+
   </div>
   <!-- /.login-box-body -->
 </div>

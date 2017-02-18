@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Presenters\UserPresenter;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laracasts\Presenter\PresentableTrait;
@@ -35,5 +36,16 @@ class User extends Authenticatable
     public function profile()
     {
         return $this->hasOne('App\Profile');
+    }
+
+    public function tokens()
+    {
+        return $this->hasMany('App\Tokens');
+    }
+    
+    public function activation_token()
+    {
+        return $this->hasOne('App\Tokens')
+            ->where('type', '=', 'user_activation');
     }
 }

@@ -8,6 +8,7 @@
 namespace App\Events\User;
 
 use App\Profile;
+use App\Tokens;
 use App\User;
 
 class Registered
@@ -24,11 +25,25 @@ class Registered
         return $this->user->name;
     }
 
+    public function handleUserRegistration()
+    {
+        $this->makeUserProfile();
+        $this->generateActivationToken();
+    }
+
     public function makeUserProfile()
     {
         Profile::create([
             'user_id' => $this->user->id,
             'options' => ['sidebar' => true]
+        ]);
+    }
+
+    public function generateActivationToken()
+    {
+        Tokens::create([
+            'user_id' => $this->user->id,
+            'type' => 'user_activation'
         ]);
     }
 }

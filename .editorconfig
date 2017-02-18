@@ -9,3 +9,6 @@ indent_size = 2
 
 [*.blade.php]
 indent_size = 2
+
+[*.html]
+indent_size = 2

@@ -1,0 +1,30 @@
+<div class="UserActivation">
+  <table class="table table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Token</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr v-for="user in users">
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ (user.activation_token && user.activation_token.token) ? user.activation_token.token : '' }}</td>
+        <td align="right">
+          <button class="btn btn-success btn-xs">
+            <i class="fa fa-check"></i> Activate
+          </button>
+          <button class="btn btn-danger btn-xs gap-left gap-20">
+            <i class="fa fa-trash"></i> Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

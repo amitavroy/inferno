@@ -12,3 +12,17 @@
     margin-bottom: 40px;
   }
 }
+.gap-left {
+  &.gap-10 {
+    margin-left: 10px;
+  }
+  &.gap-20 {
+    margin-left: 20px;
+  }
+  &.gap-30 {
+    margin-left: 30px;
+  }
+  &.gap-40 {
+    margin-left: 40px;
+  }
+}

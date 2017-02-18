@@ -26,6 +26,9 @@ class CreateProfilesTable extends Migration
             $table->text('options')->nullable();
             $table->timestamps();
             $table->index('user_id');
+
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

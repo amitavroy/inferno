@@ -103,8 +103,8 @@ class ProfilePageTest extends DuskTestCase
         });
     }
     
-//    public function testProfileImageUpload()
-//    {
+    public function testProfileImageUpload()
+    {
 //        $this->browse(function ($browser) {
 //            $imagePath = public_path('adminlte/avtar.png');
 //            $browser->visit(new Pages\ProfilePage())
@@ -115,5 +115,5 @@ class ProfilePageTest extends DuskTestCase
 //                ->waitUntilMissing('.Image-upload .Modal')
 //                ->visit($this->pageUrl);
 //        });
-//    }
+    }
 }

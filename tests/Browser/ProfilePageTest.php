@@ -64,6 +64,44 @@ class ProfilePageTest extends DuskTestCase
                 ->assertSee('You need to mention your name.');
         });
     }
+
+    public function testProfileDataGetsSaved()
+    {
+        $this->browse(function ($browser) {
+            $time = time();
+            $country = 'India';
+            $twitter = 'amitavroy7';
+            $facebook = 'https://facebook.com';
+            $skype = 'amitavroy';
+            $linkedIn = 'amitavroy';
+            $designation = 'Software developer';
+
+            $browser->visit(new Pages\ProfilePage())
+                ->type('country', $country . $time)
+                ->type('twitter', $twitter . $time)
+                ->type('facebook', $facebook . $time)
+                ->type('skype', $skype . $time)
+                ->type('linkedin', $linkedIn . $time)
+                ->type('designation', $designation . $time)
+                ->click('#profiled-edit-form .btn-success')
+                ->assertPathIs($this->pageUrl)
+
+                ->assertInputValue('country', $country . $time)
+                ->assertInputValue('twitter', $twitter . $time)
+                ->assertInputValue('facebook', $facebook . $time)
+                ->assertInputValue('skype', $skype . $time)
+                ->assertInputValue('linkedin', $linkedIn . $time)
+                ->assertInputValue('designation', $designation . $time)
+
+                ->type('country', $country)
+                ->type('twitter', $twitter)
+                ->type('facebook', $facebook)
+                ->type('skype', $skype)
+                ->type('linkedin', $linkedIn)
+                ->type('designation', $designation)
+                ->click('#profiled-edit-form .btn-success');
+        });
+    }
     
 //    public function testProfileImageUpload()
 //    {

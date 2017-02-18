@@ -85,6 +85,7 @@ class UserController extends Controller
         $user->save();
 
         // saving all profile fields also. Not checking if there is a change
+        $user->profile->country = $request->input('country');
         $user->profile->twitter = $request->input('twitter');
         $user->profile->facebook = $request->input('facebook');
         $user->profile->skype = $request->input('skype');

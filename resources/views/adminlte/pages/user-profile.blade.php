@@ -14,7 +14,7 @@
   <div class="section">
     <div class="row">
       <div class="col-md-7 col-sm-12">
-        <form action="{{route('update-profile')}}" method="post">
+        <form action="{{route('update-profile')}}" method="post" id="profiled-edit-form">
           {{--Box--}}
           <div class="box box-primary">
             <div class="box-header with-border">

@@ -1,5 +1,5 @@
 <div class="UserActivation">
-  <table class="table table-bordered table-striped table-hover">
+  <table class="table table-bordered table-striped table-hover" v-if="userList.length > 0">
     <thead>
       <tr>
         <th>#</th>
@@ -11,20 +11,23 @@
     </thead>
 
     <tbody>
-      <tr v-for="user in users">
+      <tr v-for="user in userList">
         <td>{{ user.id }}</td>
         <td>{{ user.name }}</td>
         <td>{{ user.email }}</td>
         <td>{{ (user.activation_token && user.activation_token.token) ? user.activation_token.token : '' }}</td>
         <td align="right">
-          <button class="btn btn-success btn-xs">
+          <button class="btn btn-success btn-xs" v-on:click="activateInactiveUser(user)">
             <i class="fa fa-check"></i> Activate
           </button>
-          <button class="btn btn-danger btn-xs gap-left gap-20">
+          <button class="btn btn-danger btn-xs gap-left gap-20" v-on:click="deleteInactiveUser(user)">
             <i class="fa fa-trash"></i> Delete
           </button>
         </td>
       </tr>
     </tbody>
   </table>
+  <div v-else>
+    <h3>No users pending for activation</h3>
+  </div>
 </div>

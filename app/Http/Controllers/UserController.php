@@ -5,14 +5,49 @@ namespace App\Http\Controllers;
 use App\Events\User\LoggedIn;
 use App\Events\User\LoggedOut;
 use App\Events\User\ProfileEdited;
+use App\Events\User\Registered;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UpdateProfileRequest;
+use App\Http\Requests\UserRegisterRequest;
 use App\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
+    public function getRegistrationPage()
+    {
+        return view('adminlte.pages.register');
+    }
+
+    public function postHandleUserRegistration(UserRegisterRequest $request)
+    {
+        $user = [
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+            'active' => 0
+        ];
+
+        try {
+            DB::beginTransaction();
+            $registeredUser = User::create($user);
+            event(new Registered($registeredUser));
+            DB::commit();
+            flash('Registration done. Check email to activate account.', 'success');
+            return redirect()->back();
+        } catch (Exception $e) {
+            DB::rollBack();
+            $message = '';
+            if (env('APP_ENV') == 'local') {
+                $message = $e->getMessage();
+            }
+            abort(500, 'Data was not saved. ' . $message);
+        }
+    }
+
     /**
      * Handling the login page's post request.
      *

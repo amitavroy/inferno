@@ -3,6 +3,11 @@
 Route::get('/', function () {return view('adminlte.pages.login');});
 Route::post('/login', ['as' => 'login', 'uses' => 'UserController@login']);
 
+if (\Setting::get('user_can_register')) {
+    Route::get('register', ['as' => 'register', 'uses' => 'UserController@getRegistrationPage']);
+    Route::post('do-register', ['as' => 'do-register', 'uses' => 'UserController@postHandleUserRegistration']);
+}
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'UserController@pageDashboard']);
     Route::post('do-logout', ['as' => 'logout', 'uses' => 'UserController@postLogout']);

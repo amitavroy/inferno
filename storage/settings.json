@@ -1,5 +1,6 @@
 {
   "watchdog": true,
   "app_name": "Inferno",
-  "app_short_name": "Inf"
+  "app_short_name": "Inf",
+  "user_can_register": true
 }

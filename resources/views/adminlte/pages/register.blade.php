@@ -31,26 +31,45 @@
   @include('flash::message')
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Hell awaits you... login to enter</p>
+    <p class="login-box-msg">Hell awaits you... register with us</p>
 
-    <form action="{{route('login')}}" method="post">
+    <form action="{{route('do-register')}}" method="post" id="registration-form">
       {{csrf_field()}}
+
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Email" name="email" tabindex="1">
+        <input type="text"
+               name="name"
+               class="form-control"
+               placeholder="Full name"
+               value="{{old('name')}}">
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        <div class="HelpText error">{{$errors->first('name')}}</div>
+      </div>
+      <div class="form-group has-feedback">
+        <input type="email"
+               name="email"
+               class="form-control"
+               value="{{old('email')}}"
+               placeholder="Email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         <div class="HelpText error">{{$errors->first('email')}}</div>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password" name="password" tabindex="2">
+        <input type="password" name="password" class="form-control" placeholder="Password">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         <div class="HelpText error">{{$errors->first('password')}}</div>
       </div>
       <div class="form-group has-feedback">
-        <label>
-          <input type="checkbox" name="remember"> Remember Me
-        </label>
+        <input type="password" name="cpassword" class="form-control" placeholder="Retype password">
+        <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+        <div class="HelpText error">{{$errors->first('cpassword')}}</div>
       </div>
-      <button type="submit" class="btn btn-primary btn-block btn-flat">Login In</button>
+      <div class="row">
+        <div class="col-xs-4">
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+        </div>
+        <!-- /.col -->
+      </div>
     </form>
 
     <div class="social-auth-links text-center">
@@ -61,9 +80,6 @@
         Google+</a>
     </div>
     <!-- /.social-auth-links -->
-
-    <a href="#">I forgot my password</a><br>
-    <a href="{{route('register')}}" class="text-center">Register a new membership</a>
 
   </div>
   <!-- /.login-box-body -->

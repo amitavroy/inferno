@@ -10,6 +10,7 @@ namespace App\Listeners;
 use App\Events\User\LoggedIn;
 use App\Events\User\LoggedOut;
 use App\Events\User\ProfileEdited;
+use App\Events\User\Registered;
 use App\Services\Logger;
 use Illuminate\Support\Facades\Auth;
 
@@ -40,11 +41,19 @@ class UserEventListeners
         $this->logger->log("User {$name} changed his profile");
     }
 
+    public function userRegistered(Registered $event)
+    {
+        $event->makeUserProfile(); // generating the default profile
+        $name = $event->getUserName();
+        $this->logger->log("A new User {$name} registered. Activation is pending.");
+    }
+
     public function subscribe($events)
     {
         $class = 'App\Listeners\UserEventListeners';
         $events->listen(LoggedIn::class, "{$class}@userLoggedIn");
         $events->listen(LoggedOut::class, "{$class}@userLoggedOut");
         $events->listen(ProfileEdited::class, "{$class}@userProfileEdited");
+        $events->listen(Registered::class, "{$class}@userRegistered");
     }
 }

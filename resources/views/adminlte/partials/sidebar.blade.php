@@ -36,7 +36,12 @@
             </span>
         </a>
         <ul class="treeview-menu">
-          <li class="{{ Request::is('config/activities') ? 'active' : ''  }}"><a href="{{route('activities')}}"><i class="fa fa-circle-o"></i> Activities</a></li>
+          <li class="{{ Request::is('config/activities') ? 'active' : ''  }}">
+            <a href="{{route('activities')}}"><i class="fa fa-circle-o"></i> Activities</a>
+          </li>
+          <li class="{{ Request::is('config/settings') ? 'active' : ''  }}">
+            <a href="{{route('settings')}}"><i class="fa fa-circle-o"></i> Settings</a>
+          </li>
         </ul>
       </li>
     </ul>

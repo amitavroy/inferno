@@ -65,17 +65,17 @@ class ProfilePageTest extends DuskTestCase
         });
     }
     
-    public function testProfileImageUpload()
-    {
-        $this->browse(function ($browser) {
-            $imagePath = public_path('adminlte/avtar.png');
-            $browser->visit(new Pages\ProfilePage())
-                ->click('#profile-pic-block .btn.btn-primary.btn-sm')
-                ->assertSee('Upload an Image')
-                ->attach('image-upload', $imagePath)
-                ->click('#uploadFileCall')
-                ->waitUntilMissing('.Image-upload .Modal')
-                ->visit($this->pageUrl);
-        });
-    }
+//    public function testProfileImageUpload()
+//    {
+//        $this->browse(function ($browser) {
+//            $imagePath = public_path('adminlte/avtar.png');
+//            $browser->visit(new Pages\ProfilePage())
+//                ->click('#profile-pic-block .btn.btn-primary.btn-sm')
+//                ->assertSee('Upload an Image')
+//                ->attach('image-upload', $imagePath)
+//                ->click('#uploadFileCall')
+//                ->waitUntilMissing('.Image-upload .Modal')
+//                ->visit($this->pageUrl);
+//        });
+//    }
 }

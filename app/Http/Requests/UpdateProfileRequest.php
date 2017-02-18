@@ -24,7 +24,13 @@ class UpdateProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:2|max:100'
+            'name' => 'required|min:2|max:100',
+            'country' => 'max:50',
+            'twitter' => 'max:60',
+            'facebook' => 'max:60',
+            'skype' => 'max:60',
+            'linkedin' => 'max:60',
+            'designation' => 'max:60',
         ];
     }
 

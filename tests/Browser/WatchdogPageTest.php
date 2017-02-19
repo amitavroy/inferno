@@ -11,7 +11,7 @@ class WatchdogPageTest extends DuskTestCase
 
     function __construct()
     {
-        $this->pageUrl = '/config/activities';
+        $this->pageUrl = '/config/system/activities';
     }
 
     /**

@@ -34,9 +34,9 @@ class UserRegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.unique' => 'This email address is already used',
-            'cpassword.required' => 'You need to confirm your password',
-            'cpassword.same' => 'This should match your password field'
+            'email.unique' => 'This email address is already used.',
+            'cpassword.required' => 'You need to confirm your password.',
+            'cpassword.same' => 'This should match your password field.'
         ];
     }
 }

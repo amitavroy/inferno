@@ -17,7 +17,6 @@
     methods: {
       deleteInactiveUser (user) {
         this.axios.post(deleteUser, {userId: user.id}).then(response => {
-          console.log(response)
           this.userList = _.remove(this.userList, user => {return user.id !== response.data.data.id})
         })
       },

@@ -8,6 +8,7 @@ if (\Setting::get('user_can_register')) {
     Route::get('register', ['as' => 'register', 'uses' => 'UserController@getRegistrationPage']);
     Route::post('do-register', ['as' => 'do-register', 'uses' => 'UserController@postHandleUserRegistration']);
     Route::get('config/user/activation-pending', [
+        'middleware' => 'auth',
         'as' => 'user-activation-pending',
         'uses' => 'AdminController@getUserActivationPending'
     ]);

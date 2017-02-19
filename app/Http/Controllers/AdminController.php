@@ -15,7 +15,10 @@ class AdminController extends Controller
 
     public function getUserActivationPending()
     {
-        $users = User::with('activation_token')->where('active', 0)->get();
+        $users = User::with('activation_token')
+            ->where('active', 0)
+            ->orderBy('created_at', 'desc')
+            ->get();
         return view('adminlte.pages.admin.user-activation-pending', compact('users'));
     }
 }

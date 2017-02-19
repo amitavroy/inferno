@@ -91,6 +91,18 @@ class RegistrationTest extends DuskTestCase
         });
     }
 
+    public function testInactiveUserCannotLogin()
+    {
+        $this->browse(function ($browser) {
+            $browser->visit('/')
+                ->type('email', 'jhondoe' . $this->time . '@gmail.com')
+                ->type('password', 'password')
+                ->click('.btn-primary')
+                ->assertPathIs('/')
+                ->assertSee('Cannot login. Check your username and password again');
+        });
+    }
+
     public function testClickActivationOfUser()
     {
         $this->browse(function ($browser) {

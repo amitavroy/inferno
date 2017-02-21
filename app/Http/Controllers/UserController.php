@@ -6,6 +6,7 @@ use App\Events\User\LoggedIn;
 use App\Events\User\LoggedOut;
 use App\Events\User\ProfileEdited;
 use App\Events\User\Registered;
+use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Requests\UserRegisterRequest;
@@ -136,5 +137,28 @@ class UserController extends Controller
     public function getSettingsPage()
     {
         return view('adminlte.pages.settings');
+    }
+
+    public function postHandlePasswordChange(ChangePasswordRequest $request)
+    {
+        $currentPassword = $request->input('current_password');
+        $newPassword = $request->input('new_password');
+        $confirmPassword = $request->input('confirm_password');
+
+        $credentials = [
+            'email' => Auth::user()->email,
+            'password' => $currentPassword
+        ];
+
+        if (Auth::attempt($credentials)) {
+            Auth::user()->password = bcrypt($confirmPassword);
+            Auth::user()->save();
+
+            flash('Your password is now changed.');
+            return redirect()->back();
+        }
+
+        flash('Check if your current password is correct.', 'warning');
+        return redirect()->back();
     }
 }

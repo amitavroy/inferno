@@ -19,6 +19,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('do-logout', ['as' => 'logout', 'uses' => 'UserController@postLogout']);
     Route::get('user/profile', ['as' => 'profile', 'uses' => 'UserController@pageUserProfile']);
     Route::post('user/profile', ['as' => 'update-profile', 'uses' => 'UserController@postUpdateProfile']);
+    Route::post('user/password-change', ['as' => 'change-password', 'uses' => 'UserController@postHandlePasswordChange']);
     Route::get('config', ['as' => 'config', 'uses' => 'AdminController@getConfigPage']);
     Route::get('config/system/activities', ['as' => 'activities', 'uses' => 'WatchdogController@getWatchdogPage']);
     Route::get('config/system/settings', ['as' => 'settings', 'uses' => 'UserController@getSettingsPage']);

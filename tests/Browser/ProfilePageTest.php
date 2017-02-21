@@ -2,6 +2,7 @@
 
 namespace Tests\Browser;
 
+use Illuminate\Foundation\Auth\User;
 use Tests\DuskTestCase;
 
 class ProfilePageTest extends DuskTestCase
@@ -21,10 +22,8 @@ class ProfilePageTest extends DuskTestCase
     public function testExample()
     {
         $this->browse(function ($browser) {
-            $exampleTest = new ExampleTest();
-            $exampleTest->testBasicLogin();
-
-            $browser->visit(new Pages\ProfilePage())
+            $browser->loginAs(User::find(1))
+                ->visit(new Pages\ProfilePage())
                 ->assertSeeIn('section.content-header', 'My profile');
         });
     }
@@ -115,5 +114,74 @@ class ProfilePageTest extends DuskTestCase
 //                ->waitUntilMissing('.Image-upload .Modal')
 //                ->visit($this->pageUrl);
 //        });
+    }
+
+    public function testPasswordChangeFormValidations()
+    {
+        $this->browse(function ($browser) {
+            $browser->visit(new Pages\ProfilePage())
+                ->type('current_password', '')
+                ->type('new_password', '')
+                ->type('confirm_password', '')
+                ->click('#change-password-form .btn-success')
+                ->assertPathIs($this->pageUrl)
+                ->assertSee('The confirm password field is required.')
+                ->assertSee('The new password field is required.')
+                ->assertSee('The current password field is required.');
+        });
+    }
+
+    public function testPasswordShouldMatch()
+    {
+        $this->browse(function ($browser) {
+            $browser->visit(new Pages\ProfilePage())
+                ->type('current_password', 'password')
+                ->type('new_password', 'password1')
+                ->type('confirm_password', 'password2')
+                ->click('#change-password-form .btn-success')
+                ->assertPathIs($this->pageUrl)
+                ->assertSee('Both the password are not same.');
+        });
+    }
+
+    public function testForWrongPassword()
+    {
+        $this->browse(function ($browser) {
+            $browser->visit(new Pages\ProfilePage())
+                ->type('current_password', 'password1')
+                ->type('new_password', 'password1')
+                ->type('confirm_password', 'password1')
+                ->click('#change-password-form .btn-success')
+                ->assertPathIs($this->pageUrl)
+                ->assertSee('Check if your current password is correct.');
+        });
+    }
+
+    public function testCorrectPasswordChangeData()
+    {
+        $this->browse(function ($browser) {
+            $browser->visit(new Pages\ProfilePage())
+                ->type('current_password', 'password')
+                ->type('new_password', 'password1')
+                ->type('confirm_password', 'password1')
+                ->click('#change-password-form .btn-success')
+                ->assertPathIs($this->pageUrl)
+                ->assertSee('Your password is now changed.')
+                ->click('.main-header #user-dropdown-menu')
+                ->click('#logout-button')
+                ->assertSee('Inferno')
+                ->assertSee('You have been logged out')
+                ->type('email', 'reachme@amitavroy.com')
+                ->type('password', 'password1')
+                ->click('.btn-primary')
+                ->assertSee('Dashboard')
+                ->visit(new Pages\ProfilePage())
+                ->type('current_password', 'password1')
+                ->type('new_password', 'password')
+                ->type('confirm_password', 'password')
+                ->click('#change-password-form .btn-success')
+                ->assertPathIs($this->pageUrl)
+                ->assertSee('Your password is now changed.');
+        });
     }
 }

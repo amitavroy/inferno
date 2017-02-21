@@ -11,5 +11,15 @@
 @endsection
 
 @section('content')
+  <div class="row">
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <info-box
+        text="Act. Pending"
+        number="{{$dashboardData['activation_pending']}}"
+        color="bg-red"
+        icon="fa-hourglass"
+      ></info-box>
+    </div>
+  </div>
   <p>@{{ message }}</p>
 @endsection

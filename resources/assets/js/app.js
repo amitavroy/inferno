@@ -7,6 +7,7 @@ import VueAxios from 'vue-axios'
 import SidebarCollapse from './components/SidebarCollapse'
 import ImageUpload from './components/ImageUpload'
 import UserActivation from './components/user-activation/UserActivation'
+import InfoBox from './components/info-box/InfoBox'
 
 // Adding the X-CSRF-Token to all axios request
 axios.interceptors.request.use(function(config){
@@ -24,6 +25,7 @@ Vue.use(VueRouter)
 Vue.component('sidebar-collapse', SidebarCollapse)
 Vue.component('image-upload', ImageUpload)
 Vue.component('user-activation', UserActivation)
+Vue.component('info-box', InfoBox)
 
 const app = new Vue({
   el: '#app',

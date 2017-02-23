@@ -2,6 +2,7 @@
 
 namespace Tests\Browser;
 
+use Setting;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -18,7 +19,7 @@ class ExampleTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
                     ->assertSee('Hell awaits you')
-                    ->assertSee('Inferno');
+                    ->assertSee(Setting::get('app_name'));
         });
     }
 
@@ -76,6 +77,35 @@ class ExampleTest extends DuskTestCase
                 ->click('.btn-primary')
                 ->assertSee('Check your username and password again')
                 ->assertPathIs('/');
+        });
+    }
+
+    public function testSocialLoginButtonOnStates()
+    {
+
+    }
+
+    public function testRegisterLinkStates()
+    {
+        $this->browse(function (Browser $browser) {
+            $settingOriginal = Setting::get('user_can_register');
+            Setting::set('user_can_register', false);
+            Setting::save();
+
+            $browser->visit('/')
+                ->assertDontSee('Register a new membership')
+                ->visit('/register')
+                ->assertSee('Page not found.');
+
+            Setting::set('user_can_register', true);
+            Setting::save();
+            $browser->visit('/')
+                ->assertSee('Register a new membership')
+                ->visit('/register')
+                ->assertSee('Hell awaits you... register with us');
+
+            Setting::set('user_can_register', $settingOriginal);
+            Setting::save();
         });
     }
 }

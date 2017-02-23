@@ -26,12 +26,12 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="{{url('/')}}"><b>Inferno</b></a>
+    <a href="{{url('/')}}"><b>{{Setting::get('app_name')}}</b></a>
   </div>
   @include('flash::message')
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Hell awaits you... login to enter</p>
+    <p class="login-box-msg">Hell awaits you... login to enter.</p>
 
     <form action="{{route('login')}}" method="post">
       {{csrf_field()}}
@@ -53,17 +53,21 @@
       <button type="submit" class="btn btn-primary btn-block btn-flat">Login In</button>
     </form>
 
-    <div class="social-auth-links text-center">
-      <p>- OR -</p>
-      <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
-        Facebook</a>
-      <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using
-        Google+</a>
-    </div>
-    <!-- /.social-auth-links -->
-
+    @if(Setting::get('social_login'))
+      <div class="social-auth-links text-center">
+        <p>- OR -</p>
+        <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
+          Facebook</a>
+        <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using
+          Google+</a>
+      </div>
+      <!-- /.social-auth-links -->
+    @endif
+    <br/>
     <a href="#">I forgot my password</a><br>
-    <a href="{{route('register')}}" class="text-center">Register a new membership</a>
+    @if(Setting::get('user_can_register'))
+      <a href="{{route('register')}}" class="text-center">Register a new membership</a>
+    @endif
 
   </div>
   <!-- /.login-box-body -->

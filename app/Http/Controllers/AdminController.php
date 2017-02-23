@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Setting;
 
 class AdminController extends Controller
 {
@@ -20,5 +21,11 @@ class AdminController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
         return view('adminlte.pages.admin.user-activation-pending', compact('users'));
+    }
+
+    public function getSettingsPage()
+    {
+        $settings = Setting::all();
+        return view('adminlte.pages.settings')->with('settings', $settings);
     }
 }

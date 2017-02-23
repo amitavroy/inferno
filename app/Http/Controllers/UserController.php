@@ -138,11 +138,6 @@ class UserController extends Controller
         return redirect()->back();
     }
 
-    public function getSettingsPage()
-    {
-        return view('adminlte.pages.settings');
-    }
-
     public function postHandlePasswordChange(ChangePasswordRequest $request)
     {
         $currentPassword = $request->input('current_password');

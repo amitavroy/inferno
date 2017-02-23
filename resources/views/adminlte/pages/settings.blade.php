@@ -5,7 +5,8 @@
     <h1>Configuration<small>Watchdog entries</small></h1>
     <ol class="breadcrumb">
       <li><a href="{{route('dashboard')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Watchdog</li>
+      <li><a href="{{route('config')}}">Configurations</a></li>
+      <li class="active">Settings</li>
     </ol>
   </section>
 @endsection
@@ -24,18 +25,34 @@
   <div class="row">
     <div class="col-sm-12">
       <div class="box box-primary">
-        <div class="box-header with-border">
-          <h3 class="box-title">Application settings</h3>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
+        <form action="" class="form-horizontal">
+          <div class="box-header with-border">
+            <h3 class="box-title">Application settings</h3>
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body">
+            @foreach($settings as $key => $value)
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">{{$key}}</label>
+                <div class="col-sm-10">
+                  <input type="{{$key}}"
+                         class="form-control"
+                         id="inputEmail3"
+                         value="{{$value}}"
+                         placeholder="{{$key}}">
+                </div>
+              </div>
+            @endforeach
 
-        </div>
-        <!-- /.box-body -->
+          </div>
+          <!-- /.box-body -->
 
-        <div class="box-footer">
-
-        </div>
+          <div class="box-footer">
+            <button class="btn btn-success">
+              <i class="fa fa-save"></i> Save
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

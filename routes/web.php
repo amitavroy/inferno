@@ -22,5 +22,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('user/password-change', ['as' => 'change-password', 'uses' => 'UserController@postHandlePasswordChange']);
     Route::get('config', ['as' => 'config', 'uses' => 'AdminController@getConfigPage']);
     Route::get('config/system/activities', ['as' => 'activities', 'uses' => 'WatchdogController@getWatchdogPage']);
-    Route::get('config/system/settings', ['as' => 'settings', 'uses' => 'UserController@getSettingsPage']);
+    Route::get('config/system/settings', ['as' => 'settings', 'uses' => 'AdminController@getSettingsPage']);
 });

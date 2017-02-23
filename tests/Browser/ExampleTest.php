@@ -82,7 +82,25 @@ class ExampleTest extends DuskTestCase
 
     public function testSocialLoginButtonOnStates()
     {
+        $this->browse(function (Browser $browser) {
+            $settingOriginal = Setting::get('social_login');
+            Setting::set('social_login', true);
+            Setting::save();
 
+            $browser->visit('/')
+                ->assertSeeIn('.btn-facebook', 'Sign in using Facebook')
+                ->assertSeeIn('.btn-google', 'Sign in using Google+');
+
+            Setting::set('social_login', false);
+            Setting::save();
+
+            $browser->visit('/')
+                ->assertDontSee('Sign in using Facebook')
+                ->assertDontSee(' Sign in using Google+');
+
+            Setting::set('social_login', $settingOriginal);
+            Setting::save();
+        });
     }
 
     public function testRegisterLinkStates()

@@ -2,6 +2,11 @@
 
 Route::get('/', function () {return view('adminlte.pages.login');});
 Route::post('/login', ['as' => 'login', 'uses' => 'UserController@login']);
+Route::get('forgot-password', function () {return view('adminlte.pages.forgot-password');});
+Route::post('forgot-password/send', ['as' => 'forgot-password-send', 'uses' => 'UserController@postForgotPassword']);
+Route::get('forgot-password/set', function () {
+    return 'HI';
+});
 
 /*Urls based on functionality of User can register*/
 if (\Setting::get('user_can_register')) {

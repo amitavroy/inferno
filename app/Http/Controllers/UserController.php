@@ -10,11 +10,14 @@ use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Requests\UserRegisterRequest;
+use App\Mail\ForgotPasswordMail;
+use App\Tokens;
 use App\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -138,6 +141,13 @@ class UserController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * This function will handle the request for a user to change password
+     * from profile page.
+     *
+     * @param ChangePasswordRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function postHandlePasswordChange(ChangePasswordRequest $request)
     {
         $currentPassword = $request->input('current_password');
@@ -158,6 +168,29 @@ class UserController extends Controller
         }
 
         flash('Check if your current password is correct.', 'warning');
+        return redirect()->back();
+    }
+
+    public function postForgotPassword(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email'
+        ]);
+
+        $email = $request->input('email');
+        $user = User::where('email', $email)->first();
+        if (!$user) {
+            flash('This email address is not in our records.', 'warning');
+            return redirect()->back();
+        }
+
+        $token = Tokens::create([
+            'user_id' => $user->id,
+            'type' => 'forgot_password'
+        ]);
+
+        Mail::to($user)->send(new ForgotPasswordMail($token));
+        flash('Check your email for the link to change password.');
         return redirect()->back();
     }
 }

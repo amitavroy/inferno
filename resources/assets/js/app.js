@@ -1,20 +1,19 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-
+import Vue from "vue";
+import VueRouter from "vue-router";
+import axios from "axios";
+import VueAxios from "vue-axios";
 // importing custom components
-import SidebarCollapse from './components/SidebarCollapse'
-import ImageUpload from './components/ImageUpload'
-import UserActivation from './components/user-activation/UserActivation'
-import InfoBox from './components/info-box/InfoBox'
-import ConfirmModal from './components/ConfirmModal'
+import SidebarCollapse from "./components/SidebarCollapse";
+import ImageUpload from "./components/ImageUpload";
+import UserActivation from "./components/user-activation/UserActivation";
+import InfoBox from "./components/info-box/InfoBox";
 
 // Adding the X-CSRF-Token to all axios request
 axios.interceptors.request.use(function(config){
   config.headers['X-CSRF-TOKEN'] = window.Laravel.csrfToken
   return config
 })
+window.eventBus = new Vue({})
 
 // Making axios available as $http 
 // so that the ajax calls are not axios dependent

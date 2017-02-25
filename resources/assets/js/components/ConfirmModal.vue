@@ -13,13 +13,14 @@
     methods: {
       handleCloseButton () {
         this.modalState = false
-        this.$emit('onConfirm', 12)
+        window.eventBus.$emit('closed-modal-popup')
       },
       handleActionButton () {
         this.modalState = true
       },
       handleConfirmButton () {
         this.$http.post(this.url, this.dataToSend).then(response => {
+          this.$emit('onConfirm')
           this.handleCloseButton()
         })
       }

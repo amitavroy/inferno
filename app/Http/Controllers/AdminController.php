@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SettingAddRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Setting;
@@ -27,5 +28,43 @@ class AdminController extends Controller
     {
         $settings = Setting::all();
         return view('adminlte.pages.settings')->with('settings', $settings);
+    }
+
+    public function postHandleSettingsPageSave(Request $request)
+    {
+        $settings = $request->input('setting');
+
+        foreach ($settings as $key => $value) {
+            if ($value === "1") {
+                $value = true;
+            }
+            if ($value === "0") {
+                $value = false;
+            }
+            Setting::set($key, $value);
+        }
+
+        Setting::save();
+        flash('Settings are now saved.');
+        return redirect()->back();
+    }
+
+    public function postHandleSettingsPageAdd(SettingAddRequest $request)
+    {
+        $key = $request->input('name');
+        $value = $request->input('value');
+
+        if ($value === "1") {
+            $value = true;
+        }
+        if ($value === "0") {
+            $value = false;
+        }
+
+        Setting::set($key, $value);
+        Setting::save();
+
+        flash('The new setting is now added.');
+        return redirect()->back();
     }
 }

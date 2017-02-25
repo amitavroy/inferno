@@ -27,4 +27,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('config', ['as' => 'config', 'uses' => 'AdminController@getConfigPage']);
     Route::get('config/system/activities', ['as' => 'activities', 'uses' => 'WatchdogController@getWatchdogPage']);
     Route::get('config/system/settings', ['as' => 'settings', 'uses' => 'AdminController@getSettingsPage']);
+    Route::post('config/system/settings', ['as' => 'settings-save', 'uses' => 'AdminController@postHandleSettingsPageSave']);
+    Route::post('config/system/settings-add', ['as' => 'settings-add', 'uses' => 'AdminController@postHandleSettingsPageAdd']);
 });

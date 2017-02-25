@@ -1,4 +1,4 @@
-<script>
+<script type="text/babel">
   export default {
     props: ['url', 'postData', 'message', 'btnClass', 'btnText'],
     created () {
@@ -30,7 +30,7 @@
 <template>
   <div class="ConfirmModalWrapper">
     <button class="btn btn-xs" 
-      v-on:click="handleActionButton" 
+      @click="handleActionButton"
       v-bind:class="btnClass">
       <div v-html="btnText"></div>
     </button>
@@ -38,10 +38,10 @@
       <div class="modal-background"></div>
       <div class="modal-content">
         <h4>{{message}}</h4>
-        <button class="btn btn-success" v-on:click="handleConfirmButton">Ok</button>
-        <button class="btn btn-warning" v-on:click="handleCloseButton">Cancel</button>
+        <button class="btn btn-success" @click="handleConfirmButton">Ok</button>
+        <button class="btn btn-warning" @click="handleCloseButton">Cancel</button>
       </div>
-      <button class="modal-close" v-on:click="handleCloseButton"></button>
+      <button class="modal-close" @click="handleCloseButton"></button>
     </div>
   </div>
 </template>

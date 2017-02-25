@@ -8,6 +8,7 @@ import SidebarCollapse from './components/SidebarCollapse'
 import ImageUpload from './components/ImageUpload'
 import UserActivation from './components/user-activation/UserActivation'
 import InfoBox from './components/info-box/InfoBox'
+import ConfirmModal from './components/ConfirmModal'
 
 // Adding the X-CSRF-Token to all axios request
 axios.interceptors.request.use(function(config){

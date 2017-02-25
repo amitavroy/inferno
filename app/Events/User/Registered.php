@@ -10,6 +10,7 @@ namespace App\Events\User;
 use App\Profile;
 use App\Tokens;
 use App\User;
+use Carbon\Carbon;
 
 class Registered
 {
@@ -35,7 +36,7 @@ class Registered
     {
         Profile::create([
             'user_id' => $this->user->id,
-            'options' => ['sidebar' => true]
+            'options' => ['sidebar' => true],
         ]);
     }
 
@@ -43,7 +44,10 @@ class Registered
     {
         Tokens::create([
             'user_id' => $this->user->id,
-            'type' => 'user_activation'
+            'type' => 'user_activation',
+            'token' => uniqid(),
+            'created_at' => Carbon::now(),
+            'expiry_at' => Carbon::now(),
         ]);
     }
 }

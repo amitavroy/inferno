@@ -15,12 +15,11 @@ class CreateTokensTable extends Migration
     {
         Schema::create('tokens', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('token', 20)->default(uniqid());
+            $table->string('token', 20);
             $table->string('type', 100)->default('user_activation');
             $table->unsignedInteger('user_id');
-            $table->timestamp('created_at')->default(\Carbon\Carbon::now());
-            $table->timestamp('expiry_at')
-                ->default(\Carbon\Carbon::now()->addHours(env('TOKEN_EXPIRY')));
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('expiry_at')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');

@@ -8,11 +8,13 @@ use App\Events\User\ProfileEdited;
 use App\Events\User\Registered;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\ResetForgotPasswordRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Requests\UserRegisterRequest;
 use App\Mail\ForgotPasswordMail;
 use App\Tokens;
 use App\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -184,13 +186,55 @@ class UserController extends Controller
             return redirect()->back();
         }
 
+        Tokens::where('user_id', $user->id)->delete();
+
         $token = Tokens::create([
             'user_id' => $user->id,
-            'type' => 'forgot_password'
+            'type' => 'forgot_password',
+            'token' => uniqid(),
+            'created_at' => Carbon::now(),
+            'expiry_at' => Carbon::now(),
         ]);
+
+        $token = Tokens::find($token->id);
 
         Mail::to($user)->send(new ForgotPasswordMail($token));
         flash('Check your email for the link to change password.');
         return redirect()->back();
+    }
+
+    public function getSetForgotPassword($token, Request $request)
+    {
+        $token = Tokens::where('token', $token)->first();
+
+        if (!$token) {
+            abort(403, 'You are now allowed on this url.');
+        }
+
+        return view('adminlte.pages.reset-forgot-password')->with('token', $token->token);
+    }
+
+    public function postSetForgotPassword(ResetForgotPasswordRequest $request)
+    {
+        $token = $request->input('token');
+        $password = $request->input('password');
+
+        $tokenData = DB::table('tokens')
+            ->where('token', $token)
+            ->where('type', 'forgot_password')
+            ->where('expiry_at', '>', Carbon::now())
+            ->first();
+
+        if (!$tokenData) {
+            flash('Wrong link. Check again.');
+            return redirect('/');
+        }
+
+        $user = User::find($tokenData->user_id);
+        $user->password = bcrypt($password);
+        $user->save();
+
+        flash('You password has changed. Try logging in now.');
+        return redirect('/');
     }
 }

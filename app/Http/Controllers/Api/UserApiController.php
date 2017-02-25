@@ -105,6 +105,7 @@ class UserApiController extends Controller
             // remove the token
             $token = Tokens::where('user_id', $user->id)
                 ->first();
+
             if ($token)
                 $token->delete();
 

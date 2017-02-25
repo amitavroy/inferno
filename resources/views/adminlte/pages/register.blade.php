@@ -28,8 +28,8 @@
   <div class="login-logo">
     <a href="{{url('/')}}"><b>Inferno</b></a>
   </div>
-  @include('flash::message')
-  <!-- /.login-logo -->
+@include('flash::message')
+<!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg">Hell awaits you... register with us</p>
 
@@ -72,15 +72,17 @@
       </div>
     </form>
 
-    <div class="social-auth-links text-center">
-      <p>- OR -</p>
-      <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
-        Facebook</a>
-      <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using
-        Google+</a>
-    </div>
-    <!-- /.social-auth-links -->
-
+    @if(Setting::get('social_login'))
+      <div class="social-auth-links text-center">
+        <p>- OR -</p>
+        <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
+          Facebook</a>
+        <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using
+          Google+</a>
+      </div>
+      <!-- /.social-auth-links -->
+    @endif
+    <br>
     <a href="{{url('/')}}" class="text-center">I already have an account</a>
 
   </div>

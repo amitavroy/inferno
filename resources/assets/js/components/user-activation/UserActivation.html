@@ -16,13 +16,27 @@
         <td>{{ user.name }}</td>
         <td>{{ user.email }}</td>
         <td>{{ (user.activation_token && user.activation_token.token) ? user.activation_token.token : '' }}</td>
-        <td align="right">
-          <button class="btn btn-success btn-xs" v-on:click="activateInactiveUser(user)">
-            <i class="fa fa-check"></i> Activate
-          </button>
-          <button class="btn btn-danger btn-xs gap-left gap-20" v-on:click="deleteInactiveUser(user)">
-            <i class="fa fa-trash"></i> Delete
-          </button>
+        <td align="right" class="col-sm-2">
+          <div class="pull-left gap-left gap-10 activate-button">
+            <confirm-modal
+              btn-text='<i class="fa fa-check"></i> Activate'
+              btn-class="btn-success"
+              :url="activateUser"
+              :post-data="{userId: user.id}"
+              v-on:onConfirm="removeUserFromList(user)"
+              message="Are you sure you want to activate this user?">
+            </confirm-modal>
+          </div>
+          <div class="pull-left gap-left gap-10 delete-button">
+            <confirm-modal
+              btn-text='<i class="fa fa-trash"></i> Delete'
+              btn-class="btn-danger"
+              :url="deleteUser"
+              :post-data="{userId: user.id}"
+              v-on:onConfirm="removeUserFromList(user)"
+              message="Are you sure you want to delete this user?">
+            </confirm-modal>
+          </div>
         </td>
       </tr>
     </tbody>

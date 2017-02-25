@@ -2,6 +2,7 @@
 
 namespace Tests\Browser;
 
+use App\User;
 use Setting;
 use Tests\DuskTestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -126,8 +127,10 @@ class RegistrationTest extends DuskTestCase
     {
         if (Setting::get('user_can_register')) {
             $this->browse(function ($browser) {
-                $browser->visit('config/user/activation-pending')
-                    ->click('.table tbody tr:nth-child(1) .btn-success');
+                $browser->loginAs(User::find(1))
+                    ->visit('config/user/activation-pending')
+                    ->click('.table tbody tr:nth-child(1) td:last-child div.activate-button .ConfirmModalWrapper .btn-success')
+                    ->click('.table tbody tr:nth-child(1) td:last-child div.activate-button .ConfirmModalWrapper .modal-content .btn-success');
 
                 $browser->visit('/')
                     ->type('email', 'jhondoe' . $this->time . '@gmail.com')

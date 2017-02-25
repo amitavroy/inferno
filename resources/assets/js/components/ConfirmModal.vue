@@ -2,7 +2,7 @@
   export default {
     props: ['url', 'postData', 'message', 'btnClass', 'btnText'],
     created () {
-      this.dataToSend = JSON.parse(this.postData)
+      this.dataToSend = this.postData
     },
     data () {
       return {
@@ -13,6 +13,7 @@
     methods: {
       handleCloseButton () {
         this.modalState = false
+        this.$emit('onConfirm', 12)
       },
       handleActionButton () {
         this.modalState = true
@@ -20,7 +21,6 @@
       handleConfirmButton () {
         this.$http.post(this.url, this.dataToSend).then(response => {
           this.handleCloseButton()
-          window.location.reload()
         })
       }
     }
@@ -68,6 +68,7 @@
 
   .modal-content h4 {
     padding-bottom: 20px;
+    text-align: left;
   }
 
   @media screen and (min-width: 769px) {

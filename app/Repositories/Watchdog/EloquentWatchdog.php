@@ -32,7 +32,7 @@ class EloquentWatchdog extends AbstractRepository implements WatchdogRepository
         }
 
         $query->orderBy('created_at', 'desc');
-        return $query->paginate(10);
+        return $query->paginate(20);
     }
 
     public function getUserActivityGraph($userId = null)

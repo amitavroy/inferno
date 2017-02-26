@@ -107,6 +107,7 @@ class UserController extends Controller
     {
         $dashboardData = [
             'activation_pending' => DB::table('users')->where('active', '=', 0)->count(),
+            'my_recent_activities' => DB::table('watchdogs')->where('user_id', request()->user()->id)->count(),
         ];
 
         return view('adminlte.pages.dashboard', compact('dashboardData'));

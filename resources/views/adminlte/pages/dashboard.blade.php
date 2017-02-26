@@ -20,6 +20,14 @@
         icon="fa-hourglass"
       ></info-box>
     </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <info-box
+        text="My activities"
+        number="{{$dashboardData['my_recent_activities']}}"
+        color="bg-green"
+        icon="fa-line-chart"
+      ></info-box>
+    </div>
   </div>
   <p>@{{ message }}</p>
 @endsection

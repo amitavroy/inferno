@@ -9,6 +9,7 @@ use App\Tokens;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use LRedis;
 
 class UserApiController extends Controller
 {
@@ -30,6 +31,10 @@ class UserApiController extends Controller
 
         $user->profile->options = $options;
         $user->profile->save();
+
+        $redis = \LRedis::connection();
+        $redis->publish('fromController', $user);
+
         return response(['data' => $user], 200);
     }
 

@@ -16,7 +16,11 @@
   },
   "dependencies": {
     "croppie": "^2.4.0",
+    "express": "^4.14.1",
+    "redis": "^2.6.5",
+    "socket.io": "^1.7.3",
     "vue-axios": "^1.2.2",
-    "vue-router": "^2.2.0"
+    "vue-router": "^2.2.0",
+    "vue-socket.io": "^2.1.0"
   }
 }

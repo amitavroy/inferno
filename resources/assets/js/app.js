@@ -2,6 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import axios from "axios";
 import VueAxios from "vue-axios";
+import VueSocketio from 'vue-socket.io';
+
 // importing custom components
 import SidebarCollapse from "./components/SidebarCollapse";
 import ImageUpload from "./components/ImageUpload";
@@ -21,6 +23,7 @@ Vue.prototype.$http = axios
 
 Vue.use(VueAxios, axios)
 Vue.use(VueRouter)
+Vue.use(VueSocketio, 'http://localhost:8890')
 
 Vue.component('sidebar-collapse', SidebarCollapse)
 Vue.component('image-upload', ImageUpload)

@@ -19,6 +19,11 @@
           })
         }
       }
+    },
+    sockets: {
+      message () {
+          console.log('sidebarToggled')
+      }
     }
   }
 </script>

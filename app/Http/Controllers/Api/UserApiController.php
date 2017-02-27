@@ -30,6 +30,10 @@ class UserApiController extends Controller
 
         $user->profile->options = $options;
         $user->profile->save();
+
+        $redis = \LRedis::connection();
+        $redis->publish('message', $user);
+
         return response(['data' => $user], 200);
     }
 

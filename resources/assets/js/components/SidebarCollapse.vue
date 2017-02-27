@@ -19,6 +19,12 @@
           })
         }
       }
+    },
+    sockets: {
+      message (user) {
+          var userData = JSON.parse(user)
+          console.log('sidebar collapsed', userData.name)
+      }
     }
   }
 </script>

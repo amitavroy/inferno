@@ -24,6 +24,9 @@
       message (user) {
           var userData = JSON.parse(user)
           console.log('sidebar collapsed', userData.name)
+      },
+      connect (status) {
+          console.log('connected')
       }
     }
   }

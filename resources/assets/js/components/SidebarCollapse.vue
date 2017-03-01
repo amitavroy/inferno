@@ -21,23 +21,22 @@
       }
     },
     sockets: {
-      message (user) {
-          var userData = JSON.parse(user)
-          console.log('sidebar collapsed', userData.name)
+      message () {
+        console.log('sidebar collapsed')
       },
       connect (status) {
-          console.log('connected')
+        console.log('connected')
       }
     }
   }
 </script>
 
 <template>
-  <a href="javascript:void(0);" 
-    class="sidebar-toggle" 
-    data-toggle="offcanvas" 
-    role="button"
-    v-on:click="handleSidebarToggle"
+  <a href="javascript:void(0);"
+     class="sidebar-toggle"
+     data-toggle="offcanvas"
+     role="button"
+     v-on:click="handleSidebarToggle"
   >
     <span class="sr-only">Toggle navigation</span>
   </a>

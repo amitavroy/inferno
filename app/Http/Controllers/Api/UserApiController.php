@@ -63,6 +63,9 @@ class UserApiController extends Controller
         $user->profile->profile_pic = $imageUrl;
         $user->profile->save();
 
+        $redis = \LRedis::connection();
+        $redis->publish('usr_image_uploaded', $imageUrl);
+
         return response(['data' => $imageUrl], 201);
     }
 

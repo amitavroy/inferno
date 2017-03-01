@@ -12,8 +12,10 @@ io.on('connection', function (socket) {
   var redisClient = redis.createClient();
 
   redisClient.subscribe('message');
+  redisClient.subscribe('usr_image_uploaded');
 
   redisClient.on("message", function (channel, message) {
+    // console.log(channel, message);
     socket.emit(channel, message);
   });
 

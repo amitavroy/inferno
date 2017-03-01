@@ -27,3 +27,11 @@ This command will create all the tables and a user through which you can login.
 
 A lot of features are configuration based like what you want you app name to be, whether you want users to register for themselves.
 For these, you need to check the settings.json inside storage folder.
+
+This application also uses Real time capabilities using Redis, Socket.IO and Node. For this to happen, you need to also 
+run 
+
+    npm run realtime
+    
+What this is going to do is run a node based server on localhost port 8890 and the socket clients will listen to this.
+And the Node application is going to use Socket and Redis to emit events.

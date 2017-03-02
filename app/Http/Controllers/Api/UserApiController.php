@@ -33,7 +33,7 @@ class UserApiController extends Controller
         $user->profile->save();
 
         $redis = \LRedis::connection();
-        $redis->publish('fromController', $user);
+        $redis->publish('message', $user);
 
         return response(['data' => $user], 200);
     }
@@ -63,6 +63,9 @@ class UserApiController extends Controller
         $user->profile->removeCurrentProfilePic($user);
         $user->profile->profile_pic = $imageUrl;
         $user->profile->save();
+
+        $redis = \LRedis::connection();
+        $redis->publish('usr_image_uploaded', $imageUrl);
 
         return response(['data' => $imageUrl], 201);
     }

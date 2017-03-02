@@ -209,14 +209,21 @@
         <!-- User Account: style can be found in dropdown.less -->
         <li class="dropdown user user-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="user-dropdown-menu">
-            <img src="{{Auth::user()->present()->profilePic}}" class="user-image" alt="User Image">
+            <user-image
+              img-class="user-image"
+              src="{{Auth::user()->present()->profilePic}}"
+              alt="{{Auth::user()->name}}">
+            </user-image>
             <span class="hidden-xs">{{Auth::user()->name}}</span>
           </a>
           <ul class="dropdown-menu">
             <!-- User image -->
             <li class="user-header">
-              <img src="{{Auth::user()->present()->profilePic}}" class="img-circle" alt="User Image">
-
+              <user-image
+                img-class="img-circle"
+                src="{{Auth::user()->present()->profilePic}}"
+                alt="{{Auth::user()->name}}">
+              </user-image>
               <p>
                 {{Auth::user()->name}} - {{Auth::user()->profile->designation}}
                 <small>Member since Nov. 2012</small>

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\User\RoleCreated;
+use App\Http\Requests\SaveRoleRequest;
 use App\Http\Requests\SettingAddRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Setting;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
@@ -24,9 +27,15 @@ class AdminController extends Controller
         return view('adminlte.pages.admin.user-activation-pending', compact('users'));
     }
 
+    /**
+     * Getting settings page.
+     *
+     * @return $this
+     */
     public function getSettingsPage()
     {
         $settings = Setting::all();
+
         return view('adminlte.pages.settings')->with('settings', $settings);
     }
 
@@ -65,6 +74,25 @@ class AdminController extends Controller
         Setting::save();
 
         flash('The new setting is now added.');
+        return redirect()->back();
+    }
+
+    /**
+     * Get the page to see the list of roles and also the form to add a new role.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getManageRoles()
+    {
+        $roles = Role::orderBy('id', 'asc')->paginate(10);
+        return view('adminlte.pages.admin.manage-roles', compact('roles'));
+    }
+
+    public function postSaveRoles(SaveRoleRequest $request)
+    {
+        $role = Role::create(['name' => $request->input('name')]);
+        event(new RoleCreated($role));
+        flash('Added a new Role');
         return redirect()->back();
     }
 }

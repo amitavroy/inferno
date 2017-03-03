@@ -11,16 +11,6 @@
   </section>
 @endsection
 
-@section('breadcrumb')
-  <section class="content-header">
-    <h1>Settings<small>handle the application settings</small></h1>
-    <ol class="breadcrumb">
-      <li><a href="{{route('dashboard')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Settings</li>
-    </ol>
-  </section>
-@endsection
-
 @section('content')
   <div class="row">
     <div class="col-sm-8">

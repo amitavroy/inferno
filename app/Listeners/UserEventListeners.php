@@ -13,6 +13,7 @@ use App\Events\User\LoggedIn;
 use App\Events\User\LoggedOut;
 use App\Events\User\ProfileEdited;
 use App\Events\User\Registered;
+use App\Events\User\RoleCreated;
 use App\Services\Logger;
 use Illuminate\Support\Facades\Auth;
 
@@ -62,6 +63,12 @@ class UserEventListeners
         $this->logger->log("A user {$name} was deleted.");
     }
 
+    public function roleCreated(RoleCreated $event)
+    {
+        $name = $event->getName();
+        $this->logger->log("A new role {$name} was created.");
+    }
+
     public function subscribe($events)
     {
         $class = 'App\Listeners\UserEventListeners';
@@ -71,5 +78,6 @@ class UserEventListeners
         $events->listen(Registered::class, "{$class}@userRegistered");
         $events->listen(Activate::class, "{$class}@userActivated");
         $events->listen(Deleted::class, "{$class}@userDeleted");
+        $events->listen(RoleCreated::class, "{$class}@roleCreated");
     }
 }

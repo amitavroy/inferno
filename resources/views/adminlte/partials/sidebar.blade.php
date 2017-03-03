@@ -19,7 +19,7 @@
     <form action="#" method="get" class="sidebar-form">
       <div class="input-group">
         <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
+        <span class="input-group-btn">
                 <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
               </span>
@@ -33,26 +33,30 @@
         <a href="{{route('dashboard')}}"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
       </li>
 
-      <li class="{{ Request::is('config/user/*') ? 'active' : ''  }} treeview">
-        <a href="#">
-          <i class="fa fa-user"></i> <span>Users and Roles</span>
+      @role('admin')
+        <li class="{{ Request::is('config/user/*') ? 'active' : ''  }} treeview">
+          <a href="#">
+            <i class="fa fa-user"></i> <span>Users and Roles</span>
             <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-        </a>
-        <ul class="treeview-menu">
-          @if(\Setting::get('user_can_register'))
-            <li class="{{ Request::is('config/user/activation-pending') ? 'active' : ''  }}">
-              <a href="{{route('user-activation-pending')}}"><i class="fa fa-circle-o"></i> Activation pending</a>
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="{{ Request::is('config/user/roles') ? 'active' : ''  }}">
+              <a href="{{route('manage-roles')}}"><i class="fa fa-circle-o"></i> Manage Roles</a>
             </li>
-          @endif
-        </ul>
-      </li>
-
+            @if(\Setting::get('user_can_register'))
+              <li class="{{ Request::is('config/user/activation-pending') ? 'active' : ''  }}">
+                <a href="{{route('user-activation-pending')}}"><i class="fa fa-circle-o"></i> Activation pending</a>
+              </li>
+            @endif
+          </ul>
+        </li>
+      @endrole
       <li class="{{ Request::is('config/system/*') ? 'active' : ''  }} treeview">
         <a href="#">
           <i class="fa fa-gear"></i> <span>Configuration</span>
-            <span class="pull-right-container">
+          <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
         </a>

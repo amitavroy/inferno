@@ -30,9 +30,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('user/profile', ['as' => 'profile', 'uses' => 'UserController@pageUserProfile']);
     Route::post('user/profile', ['as' => 'update-profile', 'uses' => 'UserController@postUpdateProfile']);
     Route::post('user/password-change', ['as' => 'change-password', 'uses' => 'UserController@postHandlePasswordChange']);
-    Route::get('config', ['as' => 'config', 'uses' => 'AdminController@getConfigPage']);
-    Route::get('config/system/activities', ['as' => 'activities', 'uses' => 'WatchdogController@getWatchdogPage']);
-    Route::get('config/system/settings', ['as' => 'settings', 'uses' => 'AdminController@getSettingsPage']);
-    Route::post('config/system/settings', ['as' => 'settings-save', 'uses' => 'AdminController@postHandleSettingsPageSave']);
-    Route::post('config/system/settings-add', ['as' => 'settings-add', 'uses' => 'AdminController@postHandleSettingsPageAdd']);
+
+    Route::group(['middleware' => 'role:admin'], function () {
+        Route::get('config', ['as' => 'config', 'uses' => 'AdminController@getConfigPage']);
+        Route::get('config/system/activities', ['as' => 'activities', 'uses' => 'WatchdogController@getWatchdogPage']);
+        Route::get('config/system/settings', ['as' => 'settings', 'uses' => 'AdminController@getSettingsPage']);
+        Route::post('config/system/settings', ['as' => 'settings-save', 'uses' => 'AdminController@postHandleSettingsPageSave']);
+        Route::post('config/system/settings-add', ['as' => 'settings-add', 'uses' => 'AdminController@postHandleSettingsPageAdd']);
+
+        Route::get('config/user/roles', ['as' => 'manage-roles', 'uses' => 'AdminController@getManageRoles']);
+        Route::post('config/user/role-save', ['as' => 'save-role', 'uses' => 'AdminController@postSaveRoles']);
+    });
 });

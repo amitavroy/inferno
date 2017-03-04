@@ -34,7 +34,23 @@
               <tr>
                 <td>{{$role->id}}</td>
                 <td>{{ucwords($role->name)}}</td>
-                <td></td>
+                <td class="col-sm-2">
+                  @if($role->id != 1 && $role->id != 2)
+                    <div>
+                      <a href="{{route('edit-role', $role->id)}}" class="btn btn-primary btn-xs">
+                        <i class="fa fa-edit"></i> Edit
+                      </a>
+                      <confirm-modal
+                        btn-text='<i class="fa fa-trash"></i> Delete'
+                        btn-class="btn-danger"
+                        url="{{url('api/v1/delete-role')}}"
+                        :post-data="{{json_encode(['id' => $role->id])}}"
+                        message="Are you sure you want to delete this Role?">
+                      </confirm-modal>
+                      <user-image></user-image>
+                    </div>
+                  @endif
+                </td>
               </tr>
             @endforeach
             </tbody>

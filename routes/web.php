@@ -40,5 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('config/user/roles', ['as' => 'manage-roles', 'uses' => 'AdminController@getManageRoles']);
         Route::post('config/user/role-save', ['as' => 'save-role', 'uses' => 'AdminController@postSaveRoles']);
+        Route::get('config/user/roles/{id}', ['as' => 'edit-role', 'uses' => 'AdminController@getEditRole']);
+        Route::post('config/user/role/update', ['as' => 'update-role', 'uses' => 'AdminController@postUpdateRole']);
     });
 });

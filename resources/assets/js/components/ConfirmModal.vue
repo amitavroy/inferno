@@ -1,7 +1,11 @@
 <script type="text/babel">
   export default {
-    props: ['url', 'postData', 'message', 'btnClass', 'btnText'],
+    props: ['url', 'postData', 'message', 'btnClass', 'btnText', 'json'],
     created () {
+      if (this.json === true) {
+        this.dataToSend = JSON.parse(this.postData)
+        console.log('dataToSend', this.dataToSend)
+      }
       this.dataToSend = this.postData
     },
     data () {
@@ -20,6 +24,7 @@
       },
       handleConfirmButton () {
         this.$http.post(this.url, this.dataToSend).then(response => {
+          console.log('response', response)
           this.$emit('onConfirm')
           this.handleCloseButton()
         })

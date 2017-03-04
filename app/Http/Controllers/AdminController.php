@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\User\RoleCreated;
+use App\Http\Requests\EditRoleRequest;
 use App\Http\Requests\SaveRoleRequest;
 use App\Http\Requests\SettingAddRequest;
 use App\User;
@@ -93,6 +94,35 @@ class AdminController extends Controller
         $role = Role::create(['name' => $request->input('name')]);
         event(new RoleCreated($role));
         flash('Added a new Role');
+        return redirect()->back();
+    }
+
+    /**
+     * Get the edit role page.
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getEditRole($id)
+    {
+        $role = Role::find($id);
+
+        return view('adminlte.pages.admin.role-edit', compact('role'));
+    }
+
+    public function postUpdateRole(SaveRoleRequest $request)
+    {
+        $roleId = $request->input('id');
+
+        if ($roleId == 1 || $roleId == 2) {
+            abort(403, 'You cannot edit this role.');
+        }
+
+        $role = Role::find($request->input('id'));
+        $role->name = $request->input('name');
+        $role->save();
+
+        flash('Role was updated');
         return redirect()->back();
     }
 }

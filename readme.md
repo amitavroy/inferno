@@ -20,9 +20,14 @@ Once done, finally you can run
 
     php artisan migrate --seed
 
-This command will create all the tables and a user through which you can login.
+This command will create all the tables and a user through which you can login as an Admin user.
 
     Username: reachme@amitavroy.com
+    Password: password
+    
+Or you can also login through a normal authenticated user with limited set of permissions with the following credentials
+
+    Username: jhon.doe@gmail.com
     Password: password
 
 A lot of features are configuration based like what you want you app name to be, whether you want users to register for themselves.

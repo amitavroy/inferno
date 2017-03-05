@@ -19,11 +19,11 @@ class EloquentWatchdog extends AbstractRepository implements WatchdogRepository
     {
         $query = $this->model->select();
 
-        if ($options['search_text'] != null) {
+        if ($options && $options['search_text'] != null) {
             $query->orWhere('description', 'like', "%{$options['search_text']}%");
         }
 
-        if ($options['level'] != null) {
+        if ($options && $options['level'] != null) {
             $query->where('level', '=', $options['level']);
         }
 

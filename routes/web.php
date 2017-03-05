@@ -12,7 +12,7 @@ if (\Setting::get('user_can_register')) {
     Route::get('register', ['as' => 'register', 'uses' => 'UserController@getRegistrationPage']);
     Route::post('do-register', ['as' => 'do-register', 'uses' => 'UserController@postHandleUserRegistration']);
     Route::get('config/user/activation-pending', [
-        'middleware' => 'auth',
+        'middleware' => ['auth', 'role:admin'],
         'as' => 'user-activation-pending',
         'uses' => 'AdminController@getUserActivationPending'
     ]);
@@ -20,6 +20,7 @@ if (\Setting::get('user_can_register')) {
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'UserController@pageDashboard']);
+    Route::get('config/system/my-activities', ['as' => 'my-activities', 'uses' => 'UserController@pageMyActivities']);
     Route::post('do-logout', ['as' => 'logout', 'uses' => 'UserController@postLogout']);
     Route::get('user/profile', ['as' => 'profile', 'uses' => 'UserController@pageUserProfile']);
     Route::post('user/profile', ['as' => 'update-profile', 'uses' => 'UserController@postUpdateProfile']);

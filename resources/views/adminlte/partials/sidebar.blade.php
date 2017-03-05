@@ -61,12 +61,17 @@
             </span>
         </a>
         <ul class="treeview-menu">
-          <li class="{{ Request::is('config/system/activities') ? 'active' : ''  }}">
-            <a href="{{route('activities')}}"><i class="fa fa-circle-o"></i> Activities</a>
+          <li class="{{ Request::is('config/system/my-activities') ? 'active' : ''  }}">
+            <a href="{{route('my-activities')}}"><i class="fa fa-circle-o"></i> My Activities</a>
           </li>
-          <li class="{{ Request::is('config/system/settings') ? 'active' : ''  }}">
-            <a href="{{route('settings')}}"><i class="fa fa-circle-o"></i> Settings</a>
-          </li>
+          @role('admin')
+            <li class="{{ Request::is('config/system/activities') ? 'active' : ''  }}">
+              <a href="{{route('activities')}}"><i class="fa fa-circle-o"></i> Activities</a>
+            </li>
+            <li class="{{ Request::is('config/system/settings') ? 'active' : ''  }}">
+              <a href="{{route('settings')}}"><i class="fa fa-circle-o"></i> Settings</a>
+            </li>
+          @endrole
         </ul>
       </li>
     </ul>

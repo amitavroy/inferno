@@ -20,38 +20,39 @@
         <!-- /.box-header -->
         <div class="box-body">
 
-          <form action="{{route('activities')}}" method="get" class="">
-            <div class="row gap-bottom gap-20">
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <input type="text"
-                         name="search_text"
-                         placeholder="Search a description"
-                         value="{{$options['search_text']}}"
-                         class="form-control" />
+          @if($options != null)
+            <form action="{{route('activities')}}" method="get" class="">
+              <div class="row gap-bottom gap-20">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <input type="text"
+                           name="search_text"
+                           placeholder="Search a description"
+                           value="{{$options['search_text']}}"
+                           class="form-control" />
+                  </div>
+                </div>
+
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <select name="level" id="level" class="form-control">
+                      <option value="">Select</option>
+                      <option value="info" {{($options['level'] === 'info') ? 'selected' : ''}}>Info</option>
+                      <option value="warning" {{($options['level'] === 'warning') ? 'selected' : ''}}>Warning</option>
+                      <option value="danger" {{($options['level'] === 'danger') ? 'selected' : ''}}>Danger</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-sm-3">
+                  <button class="btn btn-success">
+                    <i class="fa fa-filter"></i> Filter
+                  </button>
+                  <a href="{{route('activities')}}" class="btn btn-primary">Reset</a>
                 </div>
               </div>
-
-              <div class="col-sm-3">
-                <div class="form-group">
-                  <select name="level" id="level" class="form-control">
-                    <option value="">Select</option>
-                    <option value="info" {{($options['level'] === 'info') ? 'selected' : ''}}>Info</option>
-                    <option value="warning" {{($options['level'] === 'warning') ? 'selected' : ''}}>Warning</option>
-                    <option value="danger" {{($options['level'] === 'danger') ? 'selected' : ''}}>Danger</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="col-sm-3">
-                <button class="btn btn-success">
-                  <i class="fa fa-filter"></i> Filter
-                </button>
-                <a href="{{route('activities')}}" class="btn btn-primary">Reset</a>
-              </div>
-            </div>
-          </form>
-
+            </form>
+          @endif
           <div class="row">
             <div class="col-sm-12 gap-bottom gap-10">
               <strong>Total: </strong>{{$rows->total()}}
@@ -87,8 +88,11 @@
         <!-- /.box-body -->
 
         <div class="box-footer">
-          {{--{{$rows->render()}}--}}
-          {{$rows->appends($options)->links()}}
+          @if ($options != null)
+            {{$rows->appends($options)->links()}}
+          @else
+            {{$rows->render()}}
+          @endif
         </div>
       </div>
     </div>

@@ -12,6 +12,7 @@ use App\Http\Requests\ResetForgotPasswordRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Requests\UserRegisterRequest;
 use App\Mail\ForgotPasswordMail;
+use App\Repositories\Watchdog\WatchdogRepository;
 use App\Tokens;
 use App\User;
 use Carbon\Carbon;
@@ -113,6 +114,11 @@ class UserController extends Controller
         return view('adminlte.pages.dashboard', compact('dashboardData'));
     }
 
+    /**
+     * Get the User's profile page.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function pageUserProfile()
     {
         return view('adminlte.pages.user-profile');
@@ -174,6 +180,12 @@ class UserController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * Handling the Forgot password request.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function postForgotPassword(Request $request)
     {
         $this->validate($request, [
@@ -237,5 +249,13 @@ class UserController extends Controller
 
         flash('You password has changed. Try logging in now.');
         return redirect('/');
+    }
+
+    public function pageMyActivities(WatchdogRepository $watchdog, Request $request)
+    {
+        $rows = $watchdog->getUserActivityList(Auth::user()->id, []);
+        $options = null;
+
+        return view('adminlte.pages.watchdog', compact('rows', 'options'));
     }
 }

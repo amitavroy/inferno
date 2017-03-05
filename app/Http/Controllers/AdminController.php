@@ -110,6 +110,12 @@ class AdminController extends Controller
         return view('adminlte.pages.admin.role-edit', compact('role'));
     }
 
+    /**
+     * Handle the edit role request.
+     *
+     * @param SaveRoleRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function postUpdateRole(SaveRoleRequest $request)
     {
         $roleId = $request->input('id');

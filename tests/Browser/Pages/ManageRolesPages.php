@@ -35,7 +35,8 @@ class ManageRolesPages extends BasePage
     public function elements()
     {
         return [
-            '@element' => '#selector',
+            '@role-submit' => '#role-save-form .btn-success',
+            '@role-input' => '#role-save-form input[name=name]'
         ];
     }
 }

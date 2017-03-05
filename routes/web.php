@@ -1,11 +1,5 @@
 <?php
 
-Route::get('test', function () {
-    $data = \App\User::find(2);
-    $redis = \LRedis::connection();
-    $redis->publish('message', $data);
-});
-
 Route::get('/', function () {return view('adminlte.pages.login');});
 Route::post('/login', ['as' => 'login', 'uses' => 'UserController@login']);
 Route::get('forgot-password', function () {return view('adminlte.pages.forgot-password');});

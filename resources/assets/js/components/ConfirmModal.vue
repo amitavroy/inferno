@@ -1,11 +1,18 @@
 <script type="text/babel">
   export default {
-    props: ['url', 'postData', 'message', 'btnClass', 'btnText', 'json'],
+    props: ['url', 'postData', 'message', 'btnClass', 'btnText', 'json', 'refresh'],
     created () {
       if (this.json === true) {
         this.dataToSend = JSON.parse(this.postData)
         console.log('dataToSend', this.dataToSend)
       }
+
+      if (this.refresh === true) {
+        this.$on('onConfirm', function () {
+          window.location.reload()
+        })
+      }
+
       this.dataToSend = this.postData
     },
     data () {

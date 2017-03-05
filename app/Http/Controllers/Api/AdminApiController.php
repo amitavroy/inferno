@@ -18,7 +18,6 @@ class AdminApiController extends Controller
     public function postDeleteUser(Request $request)
     {
         $roleId = $request->input('id');
-        \Log::info($request->all());
 
         if ($roleId == 1 || $roleId == 2) {
             abort(403, 'You cannot edit this role.');

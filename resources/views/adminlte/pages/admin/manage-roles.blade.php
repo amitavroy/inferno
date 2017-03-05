@@ -34,20 +34,22 @@
               <tr>
                 <td>{{$role->id}}</td>
                 <td>{{ucwords($role->name)}}</td>
-                <td class="col-sm-2">
+                <td class="col-sm-3">
                   @if($role->id != 1 && $role->id != 2)
-                    <div>
+                    <div class="pull-left">
                       <a href="{{route('edit-role', $role->id)}}" class="btn btn-primary btn-xs">
                         <i class="fa fa-edit"></i> Edit
                       </a>
+                    </div>
+                    <div class="pull-left gap-left gap-10">
                       <confirm-modal
                         btn-text='<i class="fa fa-trash"></i> Delete'
                         btn-class="btn-danger"
                         url="{{url('api/v1/delete-role')}}"
                         :post-data="{{json_encode(['id' => $role->id])}}"
-                        message="Are you sure you want to delete this Role?">
+                        :refresh="true"
+                        message="Are you sure you want to delete role {{$role->name}}?">
                       </confirm-modal>
-                      <user-image></user-image>
                     </div>
                   @endif
                 </td>
@@ -86,7 +88,7 @@
           <!-- /.box-body -->
 
           <div class="box-footer">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-success">Submit</button>
           </div>
         </form>
       </div>

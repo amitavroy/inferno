@@ -29,5 +29,13 @@
       ></info-box>
     </div>
   </div>
+  {{--End first row--}}
+
+  <div class="row">
+    <div class="col-sm-12">
+      <activity-graph></activity-graph>
+    </div>
+  </div>
+  {{--End second row--}}
   <p>@{{ message }}</p>
 @endsection

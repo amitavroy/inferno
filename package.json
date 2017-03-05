@@ -21,6 +21,7 @@
     "redis": "^2.6.5",
     "socket.io": "^1.7.3",
     "vue-axios": "^1.2.2",
+    "vue-chartjs": "^2.4.1",
     "vue-router": "^2.2.0",
     "vue-socket.io": "^2.1.0"
   }

@@ -45,6 +45,9 @@
             <li class="{{ Request::is('config/user/roles') ? 'active' : ''  }}">
               <a href="{{route('manage-roles')}}"><i class="fa fa-circle-o"></i> Manage Roles</a>
             </li>
+            <li class="{{ Request::is('config/user/permissions') ? 'active' : ''  }}">
+              <a href="{{route('manage-permissions')}}"><i class="fa fa-circle-o"></i> Manage Permissions</a>
+            </li>
             @if(\Setting::get('user_can_register'))
               <li class="{{ Request::is('config/user/activation-pending') ? 'active' : ''  }}">
                 <a href="{{route('user-activation-pending')}}"><i class="fa fa-circle-o"></i> Activation pending</a>

@@ -13,6 +13,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
     Route::group(['middleware' => 'role:admin'], function () {
         Route::post('activate-user', 'Api\UserApiController@postActivateUser');
         Route::post('delete-user', 'Api\UserApiController@postDeleteUser');
-        Route::post('delete-role', 'Api\AdminApiController@postDeleteUser');
+        Route::post('delete-role', 'Api\AdminApiController@postDeleteRole');
+        Route::post('delete-permission', 'Api\AdminApiController@postDeletePermission');
     });
 });

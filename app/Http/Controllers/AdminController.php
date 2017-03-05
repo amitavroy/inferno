@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\User\PermissionCreated;
 use App\Events\User\RoleCreated;
 use App\Http\Requests\EditRoleRequest;
+use App\Http\Requests\SavePermissionRequest;
 use App\Http\Requests\SaveRoleRequest;
 use App\Http\Requests\SettingAddRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Setting;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
@@ -129,6 +132,42 @@ class AdminController extends Controller
         $role->save();
 
         flash('Role was updated');
+        return redirect()->back();
+    }
+
+    public function getManagePermission()
+    {
+        $permissions = Permission::orderBy('id', 'asc')->paginate(10);
+        return view('adminlte.pages.admin.manage-permissions', compact('permissions'));
+    }
+
+    public function postSavePermission(SavePermissionRequest $request)
+    {
+        $name = $request->input('name');
+
+        $permission = Permission::create([
+            'name' => $name
+        ]);
+
+        event(new PermissionCreated($permission));
+        flash('New permission was created');
+        return redirect()->back();
+    }
+
+    public function getEditPermission($id)
+    {
+        $permission = Permission::find($id);
+
+        return view('adminlte.pages.admin.permission-edit', compact('permission'));
+    }
+
+    public function postUpdatePermission(SavePermissionRequest $request)
+    {
+        $permission = Permission::find($request->input('id'));
+        $permission->name = $request->input('name');
+        $permission->save();
+
+        flash('Permission was updated');
         return redirect()->back();
     }
 }

@@ -1,5 +1,5 @@
 <template src="./ActivityGraph.html"></template>
-<script type="text/babel">
+<script>
   import LineChat from './LineChat'
   export default {
     components: {

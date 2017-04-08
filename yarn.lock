@@ -2719,8 +2719,8 @@ mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
     minimist "0.0.8"
 
 moment@^2.10.6:
-  version "2.17.1"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.17.1.tgz#fed9506063f36b10f066c8b59a144d7faebe1d82"
+  version "2.18.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
 
 ms@0.7.1:
   version "0.7.1"
@@ -4299,12 +4299,13 @@ vue-axios@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/vue-axios/-/vue-axios-1.2.2.tgz#d18bb48fa7bf469ffa86676960f52a89b7d38a9d"
 
-vue-chartjs@^2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/vue-chartjs/-/vue-chartjs-2.4.1.tgz#5077b8a17b8df7d7c2f681f84cf81d775c8f69de"
+vue-chartjs@^2.5.6:
+  version "2.5.6"
+  resolved "https://registry.yarnpkg.com/vue-chartjs/-/vue-chartjs-2.5.6.tgz#84becd5b0d9cfb10f154754cf56c41ccf18a64a8"
   dependencies:
     chart.js "^2.5.0"
-    vue "^2.2.1"
+    lodash "^4.17.4"
+    vue "^2.2.6"
 
 vue-hot-reload-api@^2.0.1:
   version "2.0.8"
@@ -4358,9 +4359,9 @@ vue@^2.0.1:
   version "2.1.10"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.1.10.tgz#c9235ca48c7925137be5807832ac4e3ac180427b"
 
-vue@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/vue/-/vue-2.2.1.tgz#ddbfd2f0caf38f374f5a36eea2e1edf25225b68e"
+vue@^2.2.6:
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.2.6.tgz#451714b394dd6d4eae7b773c40c2034a59621aed"
 
 watchpack@^1.2.0:
   version "1.2.0"

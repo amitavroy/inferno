@@ -16,17 +16,18 @@ import ActivityGraph from './components/ActivityGraph/ActivityGraph'
 // Adding the X-CSRF-Token to all axios request
 axios.interceptors.request.use(function(config){
   config.headers['X-CSRF-TOKEN'] = window.Laravel.csrfToken
+  config.headers['APP'] = 'Inferno'
   return config
 })
 window.eventBus = new Vue({})
 
-// Making axios available as $http 
-// so that the ajax calls are not axios dependent
-Vue.prototype.$http = axios
-
 Vue.use(VueAxios, axios)
 Vue.use(VueRouter)
 Vue.use(VueSocketio, 'http://localhost:8890')
+
+// Making axios available as $http
+// so that the ajax calls are not axios dependent
+Vue.prototype.$http = axios
 
 Vue.component('sidebar-collapse', SidebarCollapse)
 Vue.component('image-upload', ImageUpload)

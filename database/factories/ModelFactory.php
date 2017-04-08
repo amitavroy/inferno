@@ -22,3 +22,17 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Watchdog::class, function (Faker\Generator $faker) {
+    $date = $faker->dateTimeBetween('-10 days', 'now');
+
+    return [
+        'description' => $faker->sentence(6, true),
+        'level' => $faker->randomElement(['info', 'danger', 'warning']),
+        'ip_address' => $faker->ipv4,
+        'user_id' => $faker->randomElement([1,2]),
+        'created_at' => $date,
+        'updated_at' => $date,
+    ];
+});
+

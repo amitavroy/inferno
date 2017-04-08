@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Events\User\Activate;
 use App\Events\User\Deleted;
 use App\Http\Controllers\Controller;
+use App\Repositories\Dashboard\DashboardRepository;
 use App\Tokens;
 use App\User;
 use Illuminate\Http\Request;
@@ -126,5 +127,23 @@ class UserApiController extends Controller
             DB::rollBack();
             $message = $e->getMessage();
         }
+    }
+
+    public function getUserWatchdogEntries(Request $request, DashboardRepository $dashboardRepository)
+    {
+        $userId = $request->user()->id;
+        $userActivity = $dashboardRepository->userLastWeekActivities($userId);
+        $labels = [];
+        $rows = [];
+        foreach ($userActivity as $value) {
+            $labels[] = $value->date;
+            $rows[] = $value->count;
+        }
+
+        $data = [
+            'labels' => $labels,
+            'rows' => $rows,
+        ];
+        return response()->json(['data' => $data], 200);
     }
 }

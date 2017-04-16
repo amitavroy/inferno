@@ -12,6 +12,7 @@ import InfoBox from "./components/info-box/InfoBox";
 import UserImage from './components/UserImage'
 import ConfirmModal from './components/ConfirmModal'
 import ActivityGraph from './components/ActivityGraph/ActivityGraph'
+import MediaManager from './components/MediaManager/MediaManager'
 
 // Adding the X-CSRF-Token to all axios request
 axios.interceptors.request.use(function(config){
@@ -36,6 +37,7 @@ Vue.component('info-box', InfoBox)
 Vue.component('user-image', UserImage)
 Vue.component('confirm-modal', ConfirmModal)
 Vue.component('activity-graph', ActivityGraph)
+Vue.component('media-manager', MediaManager)
 
 const app = new Vue({
   el: '#app',

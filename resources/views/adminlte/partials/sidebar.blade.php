@@ -29,8 +29,13 @@
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu">
       <li class="header">MAIN NAVIGATION</li>
+
       <li class="{{ Request::is('dashboard') ? 'active' : ''  }} treeview">
         <a href="{{route('dashboard')}}"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
+      </li>
+
+      <li class="{{ Request::is('media-manager') ? 'active' : ''  }} treeview">
+        <a href="{{route('media-manager')}}"><i class="fa fa-picture-o"></i><span>Media Manager</span></a>
       </li>
 
       @role('admin')

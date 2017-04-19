@@ -1,5 +1,26 @@
 <template src="./MediaManager.html"></template>
-<scripts>
-  export default {
+<script>
+  import Dropzone from 'vue2-dropzone'
 
-</scripts>
+  export default {
+    components: {
+      Dropzone
+    },
+    created () {
+      this.csrfHeaders = {
+        'X-CSRF-TOKEN': window.Laravel.csrfToken
+      }
+    },
+    data () {
+      return {
+        showUploader: false,
+        csrfHeaders: null
+      }
+    },
+    methods: {
+      showSuccess (file) {
+        console.log('file', file)
+      }
+    }
+  }
+</script>

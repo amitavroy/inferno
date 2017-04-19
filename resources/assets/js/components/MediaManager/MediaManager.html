@@ -1,3 +1,19 @@
 <div class="MediaManager__Wrapper">
-  <p>Checking if this works</p>
+  <div class="Uploader__Wrapper" v-if="showUploader">
+    <p>I am the uploader <span class="pull-right"><i class="fa fa-times" v-on:click="showUploader = false"></i></span></p>
+    <dropzone id="myVueDropzone"
+              class="margin-bottom-10"
+              url="https://httpbin.org/post"
+              :use-font-awesome="true"
+              accepted-file-types="image/*"
+              :thumbnail-height="100"
+              :thumbnail-width="100"
+              v-on:vdropzone-success="showSuccess"></dropzone>
+  </div>
+
+  <div class="Meta_row">
+    <button class="btn btn-primary" v-on:click="showUploader = true" v-if="!showUploader">Add new</button>
+  </div>
+
+
 </div>

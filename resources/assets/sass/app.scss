@@ -7,6 +7,16 @@
 @import "global";
 @import "messages";
 @import "croppie";
+
+@for $i from 1 through 10 {
+  .margin-bottom-#{$i * 10} {
+    margin-bottom: #{$i * 10}px;
+  }
+  .margin-top-#{$i * 10} {
+    margin-top: #{$i * 10}px;
+  }
+}
+
 .HelpText {
   &.error {
     color: $danger-color;

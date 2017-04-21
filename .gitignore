@@ -8,3 +8,4 @@ Homestead.yaml
 .env
 /public/profile_pics/*
 npm-debug.log
+/public/uploads/*

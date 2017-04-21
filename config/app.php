@@ -173,6 +173,7 @@ return [
         Laracasts\Flash\FlashServiceProvider::class,
         anlutro\LaravelSettings\ServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -232,6 +233,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Setting' => anlutro\LaravelSettings\Facade::class,
+        'Image' => Intervention\Image\Facades\Image::class
 
     ],
 

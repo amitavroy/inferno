@@ -20,6 +20,9 @@
     methods: {
       showSuccess (file) {
         console.log('file', file)
+      },
+      onError (file, error) {
+        console.log('file error', file, error)
       }
     }
   }

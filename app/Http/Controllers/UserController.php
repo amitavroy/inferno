@@ -258,9 +258,4 @@ class UserController extends Controller
 
         return view('adminlte.pages.watchdog', compact('rows', 'options'));
     }
-
-    public function getMediaManager()
-    {
-        return view('adminlte.pages.media-manager');
-    }
 }

@@ -25,7 +25,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('user/profile', ['as' => 'profile', 'uses' => 'UserController@pageUserProfile']);
     Route::post('user/profile', ['as' => 'update-profile', 'uses' => 'UserController@postUpdateProfile']);
     Route::post('user/password-change', ['as' => 'change-password', 'uses' => 'UserController@postHandlePasswordChange']);
-    Route::get('media-manager', ['as' => 'media-manager', 'uses' => 'UserController@getMediaManager']);
+    Route::get('media-manager', ['as' => 'media-manager', 'uses' => 'MediaController@index']);
 
     Route::group(['middleware' => 'role:admin'], function () {
         Route::get('config', ['as' => 'config', 'uses' => 'AdminController@getConfigPage']);

@@ -10,6 +10,8 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
     Route::post('sidebar-toggle', 'Api\UserApiController@postSidebarToggle');
     Route::post('image-upload', 'Api\UserApiController@postUploadProfilePic');
     Route::get('watchdog-entries', 'Api\UserApiController@getUserWatchdogEntries');
+
+    Route::get('get-media', 'Api\MediaApiController@list');
     Route::post('media-upload', 'Api\MediaApiController@uploadMediaImage');
 
     Route::group(['middleware' => 'role:admin'], function () {

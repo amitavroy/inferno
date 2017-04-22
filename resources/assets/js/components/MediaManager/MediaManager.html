@@ -4,7 +4,7 @@
     <dropzone id="myVueDropzone"
               class="margin-bottom-10"
               :headers="csrfHeaders"
-              url="/api/v1/media-upload"
+              :url="mediaUpload"
               :use-font-awesome="true"
               accepted-file-types="image/*"
               :thumbnail-height="100"
@@ -13,9 +13,18 @@
               v-on:vdropzone-error="onError"></dropzone>
   </div>
 
-  <div class="Meta_row">
+  <div class="Meta_row margin-bottom-10">
     <button class="btn btn-primary" v-on:click="showUploader = true" v-if="!showUploader">Add new</button>
   </div>
 
+  <div class="galleryWrapper clearfix">
+    <ul>
+      <li v-for="image in images" class="image-attachment">
+        <div class="thumbnail">
+          <img v-bind:src="image.directory + '/' + image.filename + '.' + image.extension" alt="">
+        </div>
+      </li>
+    </ul>
+  </div>
 
 </div>

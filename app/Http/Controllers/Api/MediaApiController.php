@@ -7,10 +7,18 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
+use Plank\Mediable\Media;
+use Plank\Mediable\MediaUploader;
 
 class MediaApiController extends Controller
 {
-    public function uploadMediaImage(Request $request)
+    public function list()
+    {
+        $images = Media::orderBy('created_at', 'desc')->get();
+        return response()->json(['data' => $images], 200);
+    }
+
+    public function uploadMediaImage(Request $request, MediaUploader $mediaUploader)
     {
         $validator = Validator::make($request->all(), [
             'file' => 'file|image'
@@ -40,6 +48,11 @@ class MediaApiController extends Controller
             })
             ->save(public_path($folder) . $mainFileName);
 
+        // making the media entry
+        $media = $mediaUploader->fromSource(public_path($folder) . $mainFileName)
+            ->toDirectory($folder)
+            ->upload();
+
         $thumbImage = Image::make($request->file('file'))
             ->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
@@ -47,6 +60,6 @@ class MediaApiController extends Controller
             })
             ->save(public_path($folder) . $thumbFileName);
 
-        return response()->json(['data' => $file], 201);
+        return response()->json(['data' => $media], 201);
     }
 }

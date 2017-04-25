@@ -1,11 +1,34 @@
 <script>
   export default {
-
+    props: {
+      modalClass: {
+        type: String,
+        default: 'bulma-modal'
+      }
+    },
+    created () {
+      window.eventBus.$on('bulmaModalOpen', (data) => {
+        this.modalData = data
+        this.modalStatus = true
+      })
+    },
+    data () {
+      return {
+        modalStatus: false,
+        modalData: null
+      }
+    }
   }
 </script>
 
 <template>
-
+  <div class="modal" v-bind:class="[(modalStatus) ? 'is-active' : '', modalClass]">
+    <div class="modal-background" v-on:click="modalStatus = false"></div>
+    <div class="modal-content">
+      <slot></slot>
+    </div>
+    <button class="modal-close" v-on:click="modalStatus = false"></button>
+  </div>
 </template>
 
 <style lang="scss">

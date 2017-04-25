@@ -24,7 +24,12 @@
         showUploader: false,
         csrfHeaders: null,
         images: [],
-        mediaUpload: mediaUpload
+        mediaUpload: mediaUpload,
+        currentImage: {
+          directory: '',
+          filename: '',
+          extension: ''
+        }
       }
     },
     methods: {
@@ -34,12 +39,16 @@
       },
       onError (file, error) {
         console.log('file error', file, error)
+      },
+      handleImageDetails(image) {
+        window.eventBus.$emit('bulmaModalOpen', image)
+        this.currentImage = image
       }
     }
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .galleryWrapper {
     li {
       list-style: none;
@@ -60,6 +69,16 @@
           -webkit-transform: translate(-50%,-50%);
           -ms-transform: translate(-50%,-50%);
           transform: translate(-50%,-50%);
+        }
+      }
+    }
+  }
+  .media-manager-details {
+    .modal-content {
+      width: 80%;
+      .big-image {
+        img {
+          max-width: 660px;
         }
       }
     }

@@ -21,10 +21,26 @@
     <ul>
       <li v-for="image in images" class="image-attachment">
         <div class="thumbnail">
-          <img v-bind:src="image.directory + '/' + image.filename + '.' + image.extension" alt="">
+          <img v-bind:src="image.directory + '/' + image.filename + '.' + image.extension"
+               v-on:click="handleImageDetails(image)"
+               alt="">
         </div>
       </li>
     </ul>
   </div>
+
+  <bulma-modal modal-class="media-manager-details">
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="big-image">
+          <img v-bind:src="currentImage.directory + '/' + currentImage.filename + '.' + currentImage.extension"
+               alt="">
+        </div>
+      </div>
+      <div class="col-sm-4">
+        Details
+      </div>
+    </div>
+  </bulma-modal>
 
 </div>

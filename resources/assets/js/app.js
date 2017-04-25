@@ -13,6 +13,7 @@ import UserImage from './components/UserImage'
 import ConfirmModal from './components/ConfirmModal'
 import ActivityGraph from './components/ActivityGraph/ActivityGraph'
 import MediaManager from './components/MediaManager/MediaManager'
+import BulmaModal from './components/BulmaModal'
 
 // Adding the X-CSRF-Token to all axios request
 axios.interceptors.request.use(function(config){
@@ -38,6 +39,7 @@ Vue.component('user-image', UserImage)
 Vue.component('confirm-modal', ConfirmModal)
 Vue.component('activity-graph', ActivityGraph)
 Vue.component('media-manager', MediaManager)
+Vue.component('bulma-modal', BulmaModal)
 
 const app = new Vue({
   el: '#app',

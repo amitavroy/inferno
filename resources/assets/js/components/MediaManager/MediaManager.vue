@@ -1,7 +1,7 @@
 <template src="./MediaManager.html"></template>
 <script>
   import {
-    getMedia, mediaUpload
+    getMedia, mediaUpload, metaDataSave
   } from './../../config'
   import Dropzone from 'vue2-dropzone'
 
@@ -28,7 +28,12 @@
         currentImage: {
           directory: '',
           filename: '',
-          extension: ''
+          extension: '',
+          metaData: {
+            alt: '',
+            caption: '',
+            currentImageId: null
+          }
         }
       }
     },
@@ -43,6 +48,16 @@
       handleImageDetails(image) {
         window.eventBus.$emit('bulmaModalOpen', image)
         this.currentImage = image
+        this.currentImage.metaData = JSON.parse(image.meta_data)
+      },
+      handleImageMetaDataSave() {
+        this.currentImage.metaData.currentImageId = this.currentImage.id
+        this.$http.post(metaDataSave, this.currentImage.metaData)
+          .then(response => {
+            console.log('response', response)
+          }).catch(error => {
+            console.log('error', error)
+        })
       }
     }
   }

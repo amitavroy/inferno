@@ -11,8 +11,9 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
     Route::post('image-upload', 'Api\UserApiController@postUploadProfilePic');
     Route::get('watchdog-entries', 'Api\UserApiController@getUserWatchdogEntries');
 
-    Route::get('get-media', 'Api\MediaApiController@list');
+    Route::get('get-media', 'Api\MediaApiController@index');
     Route::post('media-upload', 'Api\MediaApiController@uploadMediaImage');
+    Route::post('media/meta-data', 'Api\MediaApiController@imageMetaData');
 
     Route::group(['middleware' => 'role:admin'], function () {
         Route::post('activate-user', 'Api\UserApiController@postActivateUser');

@@ -12,12 +12,25 @@ use Plank\Mediable\MediaUploader;
 
 class MediaApiController extends Controller
 {
-    public function list()
+    /**
+     * Get the list of images for Media Manager.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index()
     {
         $images = Media::orderBy('created_at', 'desc')->get();
         return response()->json(['data' => $images], 200);
     }
 
+    /**
+     * Upload a given image coming from Request object and using Intervention to generate
+     * thumb and main image and making the Media entry as well.
+     *
+     * @param Request $request
+     * @param MediaUploader $mediaUploader
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\JsonResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function uploadMediaImage(Request $request, MediaUploader $mediaUploader)
     {
         $validator = Validator::make($request->all(), [
@@ -61,5 +74,23 @@ class MediaApiController extends Controller
             ->save(public_path($folder) . $thumbFileName);
 
         return response()->json(['data' => $media], 201);
+    }
+
+    public function imageMetaData(Request $request)
+    {
+        $media = Media::find($request->input('currentImageId'));
+
+        if (!$media) {
+            return response('Image not found', 400);
+        }
+
+        $metaData = [
+            'alt' => ($request->has('alt')) ? $request->input('alt') : '',
+            'caption' => ($request->has('caption')) ? $request->input('caption') : '',
+        ];
+        $media->meta_data = json_encode($metaData);
+        $media->save();
+
+        return $media;
     }
 }

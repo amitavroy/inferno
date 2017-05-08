@@ -20,10 +20,12 @@
   <div class="galleryWrapper clearfix">
     <ul>
       <li v-for="image in images" class="image-attachment">
+        <pre>{{image.meta_data}}</pre>
         <div class="thumbnail">
           <img v-bind:src="image.directory + '/' + image.filename + '.' + image.extension"
                v-on:click="handleImageDetails(image)"
-               alt="">
+               v-bind:alt="image.directory"
+               v-bind:title="(image.meta_data !== null) ? image.meta_data.alt : ''">
         </div>
       </li>
     </ul>
@@ -38,7 +40,23 @@
         </div>
       </div>
       <div class="col-sm-4">
-        Details
+        <div class="Media__MetaData-Wrapper">
+          <div class="form-group">
+            <label for="caption">Caption</label>
+            <input type="text" name="caption" id="caption" class="form-control" placeholder="Enter the image caption"
+              v-model="currentImage.metaData.caption">
+          </div>
+
+          <div class="form-group">
+            <label for="alt">Alt</label>
+            <input type="text" name="alt" id="alt" class="form-control" placeholder="Enter the image alt tag"
+              v-model="currentImage.metaData.alt">
+          </div>
+
+          <button class="btn btn-primary" v-on:click="handleImageMetaDataSave">
+            <i class="fa fa-save"></i> Save
+          </button>
+        </div>
       </div>
     </div>
   </bulma-modal>

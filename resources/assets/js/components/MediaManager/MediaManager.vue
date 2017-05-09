@@ -14,10 +14,12 @@
         .then(response => {
           this.images = response.data.data
         })
-
       this.csrfHeaders = {
         'X-CSRF-TOKEN': window.Laravel.csrfToken
       }
+      window.eventBus.$on('bulmaModalClose', () => {
+        this.currentImage = this.setCurrentImage()
+      })
     },
     data () {
       return {
@@ -25,22 +27,31 @@
         csrfHeaders: null,
         images: [],
         mediaUpload: mediaUpload,
-        currentImage: {
+        currentImage: this.setCurrentImage()
+      }
+    },
+    methods: {
+      setCurrentImage () {
+        return {
           directory: '',
           filename: '',
           extension: '',
-          metaData: {
+          meta_data: {
             alt: '',
             caption: '',
             currentImageId: null
           }
         }
-      }
-    },
-    methods: {
+      },
       showSuccess (file, response) {
         console.log('response', response)
-        this.images.unshift(response.data)
+        var imageData = response.data
+        imageData.meta_data = {
+          alt: '',
+          caption: '',
+          currentImageId: imageData.id
+        }
+        this.images.unshift(imageData)
       },
       onError (file, error) {
         console.log('file error', file, error)
@@ -48,11 +59,21 @@
       handleImageDetails(image) {
         window.eventBus.$emit('bulmaModalOpen', image)
         this.currentImage = image
-        this.currentImage.metaData = JSON.parse(image.meta_data)
+        if (image.meta_data == null) {
+          // console.log('need to add meta_data')
+          image.meta_data = {
+            alt: '',
+            caption: '',
+            currentImageId: image.id
+          }
+        } else {
+          // console.log('has meta_data');
+          (typeof image.meta_data === 'object') ? this.currentImage.meta_data = image.meta_data : this.currentImage.meta_data = JSON.parse(image.meta_data);
+        }
       },
       handleImageMetaDataSave() {
-        this.currentImage.metaData.currentImageId = this.currentImage.id
-        this.$http.post(metaDataSave, this.currentImage.metaData)
+        this.currentImage.meta_data.currentImageId = this.currentImage.id
+        this.$http.post(metaDataSave, this.currentImage.meta_data)
           .then(response => {
             console.log('response', response)
           }).catch(error => {

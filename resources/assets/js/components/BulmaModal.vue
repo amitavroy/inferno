@@ -17,17 +17,24 @@
         modalStatus: false,
         modalData: null
       }
+    },
+    methods: {
+      close () {
+        this.modalStatus = false
+        this.modalData = null
+        window.eventBus.$emit('bulmaModalClose')
+      }
     }
   }
 </script>
 
 <template>
   <div class="modal" v-bind:class="[(modalStatus) ? 'is-active' : '', modalClass]">
-    <div class="modal-background" v-on:click="modalStatus = false"></div>
+    <div class="modal-background" v-on:click="close"></div>
     <div class="modal-content">
       <slot></slot>
     </div>
-    <button class="modal-close" v-on:click="modalStatus = false"></button>
+    <button class="modal-close" v-on:click="close"></button>
   </div>
 </template>
 

@@ -20,7 +20,7 @@
   <div class="galleryWrapper clearfix">
     <ul>
       <li v-for="image in images" class="image-attachment">
-        <pre>{{image.meta_data}}</pre>
+        <!-- <pre>{{image.meta_data}}</pre> -->
         <div class="thumbnail">
           <img v-bind:src="image.directory + '/' + image.filename + '.' + image.extension"
                v-on:click="handleImageDetails(image)"
@@ -44,13 +44,13 @@
           <div class="form-group">
             <label for="caption">Caption</label>
             <input type="text" name="caption" id="caption" class="form-control" placeholder="Enter the image caption"
-              v-model="currentImage.metaData.caption">
+              v-model="currentImage.meta_data.caption">
           </div>
 
           <div class="form-group">
             <label for="alt">Alt</label>
             <input type="text" name="alt" id="alt" class="form-control" placeholder="Enter the image alt tag"
-              v-model="currentImage.metaData.alt">
+              v-model="currentImage.meta_data.alt">
           </div>
 
           <button class="btn btn-primary" v-on:click="handleImageMetaDataSave">

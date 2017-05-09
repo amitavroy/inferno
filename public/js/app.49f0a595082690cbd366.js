@@ -40664,6 +40664,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       modalStatus: false,
       modalData: null
     };
+  },
+
+  methods: {
+    close: function close() {
+      this.modalStatus = false;
+      this.modalData = null;
+      window.eventBus.$emit('bulmaModalClose');
+    }
   }
 };
 
@@ -40819,6 +40827,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue2_dropzone__ = __webpack_require__(480);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue2_dropzone___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue2_dropzone__);
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 //
 
 
@@ -40834,10 +40844,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     this.$http.get(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* getMedia */]).then(function (response) {
       _this.images = response.data.data;
     });
-
     this.csrfHeaders = {
       'X-CSRF-TOKEN': window.Laravel.csrfToken
     };
+    window.eventBus.$on('bulmaModalClose', function () {
+      _this.currentImage = _this.setCurrentImage();
+    });
   },
   data: function data() {
     return {
@@ -40845,23 +40857,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       csrfHeaders: null,
       images: [],
       mediaUpload: __WEBPACK_IMPORTED_MODULE_0__config__["b" /* mediaUpload */],
-      currentImage: {
-        directory: '',
-        filename: '',
-        extension: '',
-        metaData: {
-          alt: '',
-          caption: '',
-          currentImageId: null
-        }
-      }
+      currentImage: this.setCurrentImage()
     };
   },
 
   methods: {
+    setCurrentImage: function setCurrentImage() {
+      return {
+        directory: '',
+        filename: '',
+        extension: '',
+        meta_data: {
+          alt: '',
+          caption: '',
+          currentImageId: null
+        }
+      };
+    },
     showSuccess: function showSuccess(file, response) {
       console.log('response', response);
-      this.images.unshift(response.data);
+      var imageData = response.data;
+      imageData.meta_data = {
+        alt: '',
+        caption: '',
+        currentImageId: imageData.id
+      };
+      this.images.unshift(imageData);
     },
     onError: function onError(file, error) {
       console.log('file error', file, error);
@@ -40869,11 +40890,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     handleImageDetails: function handleImageDetails(image) {
       window.eventBus.$emit('bulmaModalOpen', image);
       this.currentImage = image;
-      this.currentImage.metaData = JSON.parse(image.meta_data);
+      if (image.meta_data == null) {
+        // console.log('need to add meta_data')
+        image.meta_data = {
+          alt: '',
+          caption: '',
+          currentImageId: image.id
+        };
+      } else {
+        // console.log('has meta_data');
+        _typeof(image.meta_data) === 'object' ? this.currentImage.meta_data = image.meta_data : this.currentImage.meta_data = JSON.parse(image.meta_data);
+      }
     },
     handleImageMetaDataSave: function handleImageMetaDataSave() {
-      this.currentImage.metaData.currentImageId = this.currentImage.id;
-      this.$http.post(__WEBPACK_IMPORTED_MODULE_0__config__["c" /* metaDataSave */], this.currentImage.metaData).then(function (response) {
+      this.currentImage.meta_data.currentImageId = this.currentImage.id;
+      this.$http.post(__WEBPACK_IMPORTED_MODULE_0__config__["c" /* metaDataSave */], this.currentImage.meta_data).then(function (response) {
         console.log('response', response);
       }).catch(function (error) {
         console.log('error', error);
@@ -79085,7 +79116,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('ul', _vm._l((_vm.images), function(image) {
     return _c('li', {
       staticClass: "image-attachment"
-    }, [_c('pre', [_vm._v(_vm._s(image.meta_data))]), _vm._v(" "), _c('div', {
+    }, [_c('div', {
       staticClass: "thumbnail"
     }, [_c('img', {
       attrs: {
@@ -79128,8 +79159,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.currentImage.metaData.caption),
-      expression: "currentImage.metaData.caption"
+      value: (_vm.currentImage.meta_data.caption),
+      expression: "currentImage.meta_data.caption"
     }],
     staticClass: "form-control",
     attrs: {
@@ -79139,12 +79170,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "placeholder": "Enter the image caption"
     },
     domProps: {
-      "value": _vm._s(_vm.currentImage.metaData.caption)
+      "value": _vm._s(_vm.currentImage.meta_data.caption)
     },
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.currentImage.metaData.caption = $event.target.value
+        _vm.currentImage.meta_data.caption = $event.target.value
       }
     }
   })]), _vm._v(" "), _c('div', {
@@ -79157,8 +79188,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.currentImage.metaData.alt),
-      expression: "currentImage.metaData.alt"
+      value: (_vm.currentImage.meta_data.alt),
+      expression: "currentImage.meta_data.alt"
     }],
     staticClass: "form-control",
     attrs: {
@@ -79168,12 +79199,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "placeholder": "Enter the image alt tag"
     },
     domProps: {
-      "value": _vm._s(_vm.currentImage.metaData.alt)
+      "value": _vm._s(_vm.currentImage.meta_data.alt)
     },
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.currentImage.metaData.alt = $event.target.value
+        _vm.currentImage.meta_data.alt = $event.target.value
       }
     }
   })]), _vm._v(" "), _c('button', {
@@ -79351,18 +79382,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "modal-background",
     on: {
-      "click": function($event) {
-        _vm.modalStatus = false
-      }
+      "click": _vm.close
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "modal-content"
   }, [_vm._t("default")], 2), _vm._v(" "), _c('button', {
     staticClass: "modal-close",
     on: {
-      "click": function($event) {
-        _vm.modalStatus = false
-      }
+      "click": _vm.close
     }
   })])
 },staticRenderFns: []}

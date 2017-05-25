@@ -34,8 +34,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('config/system/settings', ['as' => 'settings-save', 'uses' => 'AdminController@postHandleSettingsPageSave']);
         Route::post('config/system/settings-add', ['as' => 'settings-add', 'uses' => 'AdminController@postHandleSettingsPageAdd']);
 
-        Route::get('config/user/roles', ['as' => 'manage-roles', 'uses' => 'AdminController@getManageRoles']);
-        Route::post('config/user/role-save', ['as' => 'save-role', 'uses' => 'AdminController@postSaveRoles']);
+        Route::get('config/user/import', 'AdminController@importUser')->name('import-user');
+        Route::post('config/user/import', 'AdminController@handleImportUser')->name('bulk-import-user');
+        Route::get('config/user/roles', 'AdminController@getManageRoles')->name('manage-roles');
+        Route::post('config/user/role-save', 'AdminController@postSaveRoles')->name('save-role');
         Route::get('config/user/roles/{id}', ['as' => 'edit-role', 'uses' => 'AdminController@getEditRole']);
         Route::post('config/user/role/update', ['as' => 'update-role', 'uses' => 'AdminController@postUpdateRole']);
 

@@ -10,6 +10,7 @@ use App\Http\Requests\SaveRoleRequest;
 use App\Http\Requests\SettingAddRequest;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Setting;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -168,6 +169,43 @@ class AdminController extends Controller
         $permission->save();
 
         flash('Permission was updated');
+        return redirect()->back();
+    }
+
+    public function importUser()
+    {
+        return view('adminlte.pages.admin.import-user');
+    }
+
+    public function handleImportUser(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'file' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator);
+        }
+
+        $file = $request->file('file');
+        $csvData = file_get_contents($file);
+        $rows = array_map("str_getcsv", explode("\n", $csvData));
+        $header = array_shift($rows);
+
+        foreach ($rows as $row) {
+            $row = array_combine($header, $row);
+
+            User::create([
+                'name' => $row['name'],
+                'email' => $row['email'],
+                'password' => bcrypt(uniqid()),
+                'active' => 1,
+            ]);
+        }
+
+        flash('Users imported');
         return redirect()->back();
     }
 }

@@ -4,6 +4,7 @@ namespace App\Services\User;
 
 use App\User;
 use DB;
+use Log;
 
 class UserImport
 {
@@ -73,22 +74,21 @@ class UserImport
 
     public function createUsers($header, $rows)
     {
-        foreach ($rows as $row) {
-            $row = array_combine($header, $row);
-
-            try {
-                DB::beginTransaction();
+        try {
+            DB::beginTransaction();
+            foreach ($rows as $row) {
+                $row = array_combine($header, $row);
                 User::create([
                     'name' => $row['name'],
                     'email' => $row['email'],
                     'password' => bcrypt(uniqid()),
                     'active' => 1,
                 ]);
-                DB::commit();
-            } catch (\Exception $exception) {
-                DB::rollBack();
-                \Log::info($exception->getMessage());
             }
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            Log::info($exception->getMessage());
         }
     }
 }

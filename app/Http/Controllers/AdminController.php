@@ -8,6 +8,7 @@ use App\Http\Requests\EditRoleRequest;
 use App\Http\Requests\SavePermissionRequest;
 use App\Http\Requests\SaveRoleRequest;
 use App\Http\Requests\SettingAddRequest;
+use App\Services\User\UserImport;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -177,7 +178,7 @@ class AdminController extends Controller
         return view('adminlte.pages.admin.import-user');
     }
 
-    public function handleImportUser(Request $request)
+    public function handleImportUser(Request $request, UserImport $userImport)
     {
         $validator = Validator::make($request->all(), [
             'file' => 'required'
@@ -194,18 +195,16 @@ class AdminController extends Controller
         $rows = array_map("str_getcsv", explode("\n", $csvData));
         $header = array_shift($rows);
 
-        foreach ($rows as $row) {
-            $row = array_combine($header, $row);
-
-            User::create([
-                'name' => $row['name'],
-                'email' => $row['email'],
-                'password' => bcrypt(uniqid()),
-                'active' => 1,
-            ]);
+        if (!$userImport->checkImportData($rows, $header)) {
+            $request->session()->flash('error_rows', $userImport->getErrorRows());
+            flash()->error('Error in data. Correct and re-upload');
+            return redirect()->back();
         }
 
+        $userImport->createUsers($header, $rows);
+
         flash('Users imported');
+        
         return redirect()->back();
     }
 }

@@ -44,7 +44,7 @@
     </div>
 
     <div class="col-sm-9">
-      @if($errors = Session::get('errors'))
+      @if($errors = Session::get('error_rows'))
         <div class="box box-primary">
           <div class="box-header with-border">
             <h3 class="box-title"></h3>
@@ -52,9 +52,7 @@
           <!-- /.box-header -->
           <div class="box-body">
             <ul class="list-group">
-              @foreach($errors as $error)
-                <li class="list-group-item">{{$error}}</li>
-              @endforeach
+              {{dump($errors)}}
             </ul>
           </div>
           <!-- /.box-body -->

@@ -47,13 +47,29 @@
       @if($errors = Session::get('error_rows'))
         <div class="box box-primary">
           <div class="box-header with-border">
-            <h3 class="box-title"></h3>
+            <h3 class="box-title">Error in data</h3>
           </div>
           <!-- /.box-header -->
-          <div class="box-body">
-            <ul class="list-group">
-              {{dump($errors)}}
-            </ul>
+          <div class="box-body no-padding">
+            <table class="table table-hover table-striped">
+              <thead>
+              <tr>
+                @foreach($errors[0] as $key => $value)
+                  <th>{{ucfirst($key)}}</th>
+                @endforeach
+              </tr>
+              </thead>
+
+              <tbody>
+              @foreach($errors as $key => $value)
+                <tr>
+                  @foreach($value as $data)
+                    <td>{{$data}}</td>
+                  @endforeach
+                </tr>
+              @endforeach
+              </tbody>
+            </table>
           </div>
           <!-- /.box-body -->
 

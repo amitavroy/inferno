@@ -44,6 +44,9 @@
     </div>
 
     <div class="col-sm-9">
+      @if($validRows = Session::get('valid_rows'))
+        {{dump($validRows)}}
+        @endif
       @if($errors = Session::get('error_rows'))
         <div class="box box-primary">
           <div class="box-header with-border">

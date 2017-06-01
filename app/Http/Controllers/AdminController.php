@@ -196,7 +196,9 @@ class AdminController extends Controller
         $header = array_shift($rows);
 
         if (!$userImport->checkImportData($rows, $header)) {
-            $request->session()->flash('error_rows', $userImport->getErrorRows());
+            $errorRows = $userImport->getErrorRows();
+            $request->session()->flash('error_rows', $errorRows);
+            $request->session()->flash('valid_rows', $userImport->getValidUsers($errorRows));
             flash()->error('Error in data. Correct and re-upload');
             return redirect()->back();
         }

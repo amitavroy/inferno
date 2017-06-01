@@ -11,7 +11,7 @@ class UserImport
     protected $users = [];
     protected $valid = true;
     protected $errorRows = [];
-    protected $validRows = [];
+    protected $rows = [];
 
     public function checkImportData($rows, $header)
     {
@@ -19,6 +19,7 @@ class UserImport
 
         foreach ($rows as $key => $row) {
             $row = array_combine($header, $row);
+            $this->rows[] = $row;
 
             // check for correct email
             if (!$this->checkValidEmail($row['email'])) {
@@ -91,5 +92,20 @@ class UserImport
             DB::rollBack();
             Log::info($exception->getMessage());
         }
+    }
+
+    public function getValidUsers($errorRows)
+    {
+        $validUsers = [];
+
+        $emails = array_column($errorRows, 'email');
+
+        foreach ($this->rows as $row) {
+            if (!in_array($row['email'], $emails)) {
+                $validUsers[] = $row;
+            }
+        }
+
+        return $validUsers;
     }
 }

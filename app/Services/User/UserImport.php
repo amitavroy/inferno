@@ -94,8 +94,10 @@ class UserImport
         }
     }
 
-    public function getValidUsers($errorRows)
+    public function getValidRows()
     {
+        $errorRows = $this->getErrorRows();
+
         $validUsers = [];
 
         $emails = array_column($errorRows, 'email');

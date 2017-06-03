@@ -9,3 +9,4 @@ Homestead.yaml
 /public/profile_pics/*
 npm-debug.log
 /public/uploads/*
+/public/download/*

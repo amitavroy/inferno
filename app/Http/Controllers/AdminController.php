@@ -9,8 +9,11 @@ use App\Http\Requests\SavePermissionRequest;
 use App\Http\Requests\SaveRoleRequest;
 use App\Http\Requests\SettingAddRequest;
 use App\Services\User\UserImport;
+use App\TempTable;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Setting;
 use Spatie\Permission\Models\Permission;
@@ -211,6 +214,68 @@ class AdminController extends Controller
 
     public function getImportData($id)
     {
+        $data = TempTable::where('uuid', $id)->first();
 
+        if (!$data) {
+            abort('400', 'Cannot find the data');
+        }
+
+        if ($data->user_id != Auth::user()->id) {
+            abort('403', 'Access denied');
+        }
+
+        $data = unserialize($data->data);
+        $header = [];
+
+        foreach ($data[0] as $key => $value) {
+            $header[] = $key;
+        }
+
+//        dd($header);
+
+        if (!file_exists(public_path('download'))) {
+            mkdir(public_path('download'), 0755, true);
+        }
+
+        $filename = time() . '.csv'; // setting the file name
+        $handle = fopen(public_path('download/' . $filename), 'w+'); // open the file handle
+        fputcsv($handle, $header); // the first row
+
+        foreach ($data as $row) {
+            fputcsv($handle, $row);
+        }
+
+        fclose($handle);
+
+        $headers = array(
+            'Content-Type' => 'text/csv',
+        );
+
+        return Response::download(public_path('download/' . $filename), $filename, $headers);
+    }
+
+    public function getIncompleteData($id, UserImport $userImport)
+    {
+        $data = TempTable::where('uuid', $id)->first();
+
+        if (!$data) {
+            abort('400', 'Cannot find the data');
+        }
+
+        if ($data->user_id != Auth::user()->id) {
+            abort('403', 'Access denied');
+        }
+
+        $data = unserialize($data->data);
+        $header = [];
+
+        foreach ($data[0] as $key => $value) {
+            $header[] = $key;
+        }
+
+        $userImport->createUsers($header, $data);
+
+        flash('Users imported');
+        return redirect()->back();
     }
 }

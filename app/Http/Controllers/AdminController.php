@@ -196,8 +196,8 @@ class AdminController extends Controller
         $header = array_shift($rows);
 
         if (!$userImport->checkImportData($rows, $header)) {
-            $request->session()->flash('error_rows', $userImport->getErrorRows());
-            $request->session()->flash('valid_rows', $userImport->getValidRows());
+            $request->session()->flash('error_row_id', $userImport->getErrorRowId());
+            $request->session()->flash('valid_row_id', $userImport->getValidRowId());
             flash()->error('Error in data. Correct and re-upload');
             return redirect()->back();
         }
@@ -207,5 +207,10 @@ class AdminController extends Controller
         flash('Users imported');
         
         return redirect()->back();
+    }
+
+    public function getImportData($id)
+    {
+
     }
 }

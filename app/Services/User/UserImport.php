@@ -2,9 +2,13 @@
 
 namespace App\Services\User;
 
+use App\TempTable;
 use App\User;
+use Carbon\Carbon;
 use DB;
+use Illuminate\Support\Facades\Auth;
 use Log;
+use Webpatser\Uuid\Uuid;
 
 class UserImport
 {
@@ -12,6 +16,8 @@ class UserImport
     protected $valid = true;
     protected $errorRows = [];
     protected $rows = [];
+    public $errorRowId;
+    public $validRowId;
 
     public function checkImportData($rows, $header)
     {
@@ -41,10 +47,21 @@ class UserImport
         return $this->valid;
     }
 
-    public function getErrorRows()
+    public function getErrorRowId()
     {
         ksort($this->errorRows);
-        return $this->errorRows;
+
+        $row = TempTable::create([
+            'uuid' => Uuid::generate(),
+            'user_id' => Auth::user()->id,
+            'data' => serialize($this->errorRows),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        $this->errorRowId = $row->uuid->string;
+
+        return $row->uuid;
     }
 
     private function checkValidEmail($email)
@@ -94,9 +111,10 @@ class UserImport
         }
     }
 
-    public function getValidRows()
+    public function getValidRowId()
     {
-        $errorRows = $this->getErrorRows();
+        $errorRows = TempTable::where('uuid', $this->errorRowId)->first();
+        $errorRows = unserialize($errorRows->data);
 
         $validUsers = [];
 
@@ -108,6 +126,14 @@ class UserImport
             }
         }
 
-        return $validUsers;
+        $row = TempTable::create([
+            'uuid' => Uuid::generate(),
+            'user_id' => Auth::user()->id,
+            'data' => serialize($validUsers),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        return $row->uuid;
     }
 }

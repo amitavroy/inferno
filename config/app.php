@@ -236,6 +236,7 @@ return [
         'Setting' => anlutro\LaravelSettings\Facade::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'MediaUploader' => Plank\Mediable\MediaUploaderFacade::class,
+        'Uuid' => Webpatser\Uuid\Uuid::class,
 
     ],
 

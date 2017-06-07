@@ -50,3 +50,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('config/user/permission/update', ['as' => 'update-permission', 'uses' => 'AdminController@postUpdatePermission']);
     });
 });
+
+Route::get('test', function () {
+    return view('adminlte.pages.test');
+});
+
+Route::post('test', function (\Illuminate\Http\Request $request) {
+    return $request->all();
+});

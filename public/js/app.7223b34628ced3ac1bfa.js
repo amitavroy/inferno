@@ -39730,6 +39730,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_MediaManager_MediaManager___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__components_MediaManager_MediaManager__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_BulmaModal__ = __webpack_require__(456);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_BulmaModal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__components_BulmaModal__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_FileField__ = __webpack_require__(484);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_FileField___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__components_FileField__);
 
 
 
@@ -39737,6 +39739,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 // importing custom components
+
 
 
 
@@ -39772,6 +39775,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('confirm-modal', __WEBPACK
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('activity-graph', __WEBPACK_IMPORTED_MODULE_11__components_ActivityGraph_ActivityGraph___default.a);
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('media-manager', __WEBPACK_IMPORTED_MODULE_12__components_MediaManager_MediaManager___default.a);
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('bulma-modal', __WEBPACK_IMPORTED_MODULE_13__components_BulmaModal___default.a);
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('file-field', __WEBPACK_IMPORTED_MODULE_14__components_FileField___default.a);
 
 var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
   el: '#app',
@@ -90570,6 +90574,181 @@ return o}());return s},t.prototype.removeEventListeners=function(){var e,t,i,n,o
 __webpack_require__(229);
 module.exports = __webpack_require__(230);
 
+
+/***/ }),
+/* 482 */,
+/* 483 */,
+/* 484 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(488)
+
+var Component = __webpack_require__(5)(
+  /* script */
+  __webpack_require__(485),
+  /* template */
+  __webpack_require__(486),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/amitavroy/code/inferno/resources/assets/js/components/FileField.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] FileField.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-8b61d438", Component.options)
+  } else {
+    hotAPI.reload("data-v-8b61d438", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 485 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+  data: function data() {
+    return {
+      imagePreview: '/adminlte/upload_image.png'
+    };
+  },
+
+
+  methods: {
+    openUpload: function openUpload() {
+      document.getElementById('file-field').click();
+    },
+    updatePreview: function updatePreview(e) {
+      var _this = this;
+
+      console.log('e', e);
+      var reader,
+          files = e.target.files;
+
+      if (files.length === 0) {
+        console.log('Empty');
+      }
+
+      reader = new FileReader();
+
+      reader.onload = function (e) {
+        _this.imagePreview = e.target.result;
+      };
+
+      reader.readAsDataURL(files[0]);
+    }
+  }
+};
+
+/***/ }),
+/* 486 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "FieldField__wrapper"
+  }, [_c('img', {
+    staticClass: "preview-image",
+    attrs: {
+      "src": _vm.imagePreview
+    },
+    on: {
+      "click": _vm.openUpload
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('input', {
+    staticStyle: {
+      "display": "none"
+    },
+    attrs: {
+      "name": "image",
+      "type": "file",
+      "id": "file-field"
+    },
+    on: {
+      "change": _vm.updatePreview
+    }
+  })])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-8b61d438", module.exports)
+  }
+}
+
+/***/ }),
+/* 487 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(22)();
+// imports
+
+
+// module
+exports.push([module.i, "\n.preview-image {\n  width: 327px;\n  height: 184px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 488 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(487);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(38)("1f6ba574", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-8b61d438!./../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./FileField.vue", function() {
+     var newContent = require("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-8b61d438!./../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./FileField.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
 
 /***/ })
 /******/ ]);

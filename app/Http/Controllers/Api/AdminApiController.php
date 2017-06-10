@@ -67,7 +67,6 @@ class AdminApiController extends Controller
         }
 
         $data = unserialize($data->data);
-        \Log::info($data);
         $count = count($data);
 
         $header = [];

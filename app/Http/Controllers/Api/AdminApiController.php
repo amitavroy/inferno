@@ -12,7 +12,10 @@ namespace App\Http\Controllers\Api;
 use App\Events\User\PermissionDeleted;
 use App\Events\User\RoleDeleted;
 use App\Http\Controllers\Controller;
+use App\Services\User\UserImport;
+use App\TempTable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -49,5 +52,36 @@ class AdminApiController extends Controller
         event(new PermissionDeleted($permission));
 
         return response(['data' => 'Permission was deleted.'], 200);
+    }
+
+    public function importCorrectUsers($id, UserImport $userImport)
+    {
+        $data = TempTable::where('uuid', $id)->first();
+
+        if (!$data) {
+            return response('Cannot find the data', 400);
+        }
+
+        if ($data->user_id != Auth::user()->id) {
+            return response('Access denied', 403);
+        }
+
+        $data = unserialize($data->data);
+        \Log::info($data);
+        $count = count($data);
+
+        $header = [];
+
+        if ($count == 0) {
+            return response('No data found', 400);
+        }
+
+        foreach ($data[0] as $key => $value) {
+            $header[] = $key;
+        }
+
+        $userImport->createUsers($header, $data);
+
+        return response('Total users imported: ' . $count, 201);
     }
 }

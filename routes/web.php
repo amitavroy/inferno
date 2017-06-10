@@ -37,7 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('config/user/import', 'AdminController@importUser')->name('import-user');
         Route::post('config/user/import', 'AdminController@handleImportUser')->name('bulk-import-user');
         Route::get('config/user/import/get-data/{uuid}', 'AdminController@getImportData')->name('get-import-data');
-        Route::get('config/user/import/incomplete/{uuid}', 'AdminController@getIncompleteData')->name('import-incomplete-data');
+//        Route::get('config/user/import/incomplete/{uuid}', 'AdminController@getIncompleteData')->name('import-incomplete-data');
 
         Route::get('config/user/roles', 'AdminController@getManageRoles')->name('manage-roles');
         Route::post('config/user/role-save', 'AdminController@postSaveRoles')->name('save-role');

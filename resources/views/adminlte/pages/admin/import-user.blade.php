@@ -45,10 +45,15 @@
 
     <div class="col-sm-9">
       @if($validRowId = Session::get('valid_row_id'))
-        <a href="{{route('import-incomplete-data', $validRowId->string)}}" class="btn btn-success">Import valid users</a>
+        <div class="margin-bottom-10">
+          <import-users url="{{route('import-incomplete-data', $validRowId->string)}}"></import-users>
+        </div>
+        {{--<a href="{{route('import-incomplete-data', $validRowId->string)}}" class="btn btn-success">Import valid users</a>--}}
       @endif
       @if($errorRowId = Session::get('error_row_id'))
-          <a href="{{route('get-import-data', $errorRowId->string)}}" class="btn btn-primary">Download file with errors</a>
+          <div class="margin-botton-10">
+            <a href="{{route('get-import-data', $errorRowId->string)}}" class="btn btn-primary">Download file with errors</a>
+          </div>
       @endif
     </div>
   </div>

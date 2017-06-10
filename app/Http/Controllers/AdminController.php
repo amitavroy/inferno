@@ -253,29 +253,4 @@ class AdminController extends Controller
 
         return Response::download(public_path('download/' . $filename), $filename, $headers);
     }
-
-    public function getIncompleteData($id, UserImport $userImport)
-    {
-        $data = TempTable::where('uuid', $id)->first();
-
-        if (!$data) {
-            abort('400', 'Cannot find the data');
-        }
-
-        if ($data->user_id != Auth::user()->id) {
-            abort('403', 'Access denied');
-        }
-
-        $data = unserialize($data->data);
-        $header = [];
-
-        foreach ($data[0] as $key => $value) {
-            $header[] = $key;
-        }
-
-        $userImport->createUsers($header, $data);
-
-        flash('Users imported');
-        return redirect()->back();
-    }
 }

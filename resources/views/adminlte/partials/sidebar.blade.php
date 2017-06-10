@@ -47,6 +47,9 @@
               </span>
           </a>
           <ul class="treeview-menu">
+            <li class="{{ Request::is('config/user/import') ? 'active' : ''  }}">
+              <a href="{{route('import-user')}}"><i class="fa fa-circle-o"></i> Import Users</a>
+            </li>
             <li class="{{ Request::is('config/user/roles') ? 'active' : ''  }}">
               <a href="{{route('manage-roles')}}"><i class="fa fa-circle-o"></i> Manage Roles</a>
             </li>

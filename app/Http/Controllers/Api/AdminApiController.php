@@ -83,4 +83,21 @@ class AdminApiController extends Controller
 
         return response('Total users imported: ' . $count, 201);
     }
+
+    public function editWrongUsersLive($id)
+    {
+        $data = TempTable::where('uuid', $id)->first();
+
+        if (!$data) {
+            return response('Cannot find the data', 400);
+        }
+
+        if ($data->user_id != Auth::user()->id) {
+            return response('Access denied', 403);
+        }
+
+        $data = unserialize($data->data);
+
+        return response($data, 200);
+    }
 }

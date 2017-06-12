@@ -51,9 +51,13 @@
         {{--<a href="{{route('import-incomplete-data', $validRowId->string)}}" class="btn btn-success">Import valid users</a>--}}
       @endif
       @if($errorRowId = Session::get('error_row_id'))
-          <div class="margin-botton-10">
-            <a href="{{route('get-import-data', $errorRowId->string)}}" class="btn btn-primary">Download file with errors</a>
-          </div>
+        <div class="margin-bottom-10">
+          <a href="{{route('get-import-data', $errorRowId->string)}}" class="btn btn-primary">Download file with errors</a>
+        </div>
+
+        <div class="margin-bottom-10">
+          <edit-users uuid="{{$errorRowId->string}}"></edit-users>
+        </div>
       @endif
     </div>
   </div>

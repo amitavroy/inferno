@@ -21,5 +21,6 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
         Route::post('delete-role', 'Api\AdminApiController@postDeleteRole');
         Route::post('delete-permission', 'Api\AdminApiController@postDeletePermission');
         Route::get('import-users/{uuid}', 'Api\AdminApiController@importCorrectUsers')->name('import-incomplete-data');
+        Route::get('edit-users/{uuid}', 'Api\AdminApiController@editWrongUsersLive');
     });
 });

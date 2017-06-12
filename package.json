@@ -26,6 +26,7 @@
     "vue-chartjs": "^2.5.6",
     "vue-router": "^2.2.0",
     "vue-socket.io": "^2.1.0",
+    "vue-table-component": "^0.0.1",
     "vue2-dropzone": "^2.2.8"
   }
 }

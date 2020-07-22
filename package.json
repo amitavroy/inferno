@@ -8,10 +8,11 @@
     "realtime": "node server.js NODE_ENV=production"
   },
   "devDependencies": {
-    "axios": "^0.15.2",
+    "axios": "^0.19.2",
     "bootstrap-sass": "^3.3.7",
     "jquery": "^3.5.0",
-    "laravel-mix": "^0.5.0",
+    "js-yaml": "^3.14.0",
+    "laravel-mix": "^4.1.4",
     "lodash": "^4.16.2",
     "vue": "^2.0.1"
   },
@@ -20,6 +21,7 @@
     "croppie": "^2.4.0",
     "express": "^4.14.1",
     "redis": "^2.6.5",
+    "serialize-javascript": "^4.0.0",
     "socket.io": "^1.7.3",
     "sweetalert2": "^6.6.5",
     "vue-axios": "^1.2.2",

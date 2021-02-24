@@ -169,7 +169,6 @@ return [
         Laravel\Tinker\TinkerServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
-        Laravel\Passport\PassportServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
         anlutro\LaravelSettings\ServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
